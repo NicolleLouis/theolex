@@ -1,0 +1,33 @@
+.title {
+    margin: auto;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.subtitle {
+    margin: auto;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.graph {
+    height: 100px;
+    width: 100px;
+}
+
+.judgement_text {
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.result {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    text-decoration: underline;
+}
