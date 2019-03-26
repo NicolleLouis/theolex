@@ -1,13 +1,10 @@
 # Theolex
 
-Theolex project (predicitive justice) with société général
+Theolex project (predicitive justice)
 
 ## Team
 
-* (TT) Louis Nicolle
-* (TT) Vincent Quagliaro
-* (CA) Peneloppe de Warren
-* (DP) Geoffroy de Boissieu
+* Louis Nicolle
 
 ## Requirements
 
