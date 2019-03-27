@@ -40,7 +40,14 @@ def load_judgement(text, filename):
 
 
 def analyse_judgement(judgement):
+    compute_text_split(judgement)
+    compute_claimant_defendant(judgement)
+    compute_judgement_is_favorable(judgement)
     compute_judgement_arguments(judgement)
+    compute_topic(judgement)
+    compute_amount(judgement)
+    compute_provision(judgement)
+    compute_jurisdiction_and_city(judgement)
 
 
 def compute_jurisdiction_and_city(judgement):
