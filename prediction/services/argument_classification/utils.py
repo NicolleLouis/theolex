@@ -4,7 +4,6 @@ from prediction.constants.abstract_pattern import abstract_rules
 from prediction.services.pattern_recognition.engine import get_pattern_by_label
 
 from prediction.services.pattern_recognition.judgement_specific import split_judge_argument_by_sentences
-from prediction.services.pattern_recognition.mail_specific import split_mail_by_sentences
 from prediction.services.pattern_recognition.core import find_all_patterns_in_text, get_sentences_with_pattern,\
     find_all_patterns_in_sentences, deduplicate_patterns
 from prediction.services.pattern_recognition.utils import get_atoms_label_within_pattern, create_molecular_pattern
@@ -13,13 +12,6 @@ from prediction.services.pattern_recognition.utils import get_atoms_label_within
 #############
 # Constants #
 #############
-
-
-def get_topic_constants():
-    topics_rules = get_topic_rules()
-    topics_possible_label = get_topic_possible_label()
-
-    return topics_rules, topics_possible_label
 
 
 def get_argument_constants():
@@ -79,18 +71,6 @@ def create_judgement_arguments_from_list(list_argument, judgement):
         sentences = split_judge_argument_by_sentences(judgement)
         abstract = get_abstract(pattern, sentences, argument_rules)
         argument_repository.create_argument(argument['label'], judgement, str(argument['input']), abstract)
-
-
-def create_mail_arguments_from_list(list_argument, mail):
-    from prediction.services.repository import mail_argument_repository
-
-    argument_rules, argument_possible_label = get_argument_constants()
-
-    for argument in list_argument:
-        pattern = get_pattern_by_label(argument["label"], argument_rules)
-        sentences = split_mail_by_sentences(mail)
-        abstract = get_abstract(pattern, sentences, argument_rules)
-        mail_argument_repository.create_argument(argument['label'], mail, str(argument['input']), abstract)
 
 
 def get_abstract_for_pattern(pattern, sentences, patterns):

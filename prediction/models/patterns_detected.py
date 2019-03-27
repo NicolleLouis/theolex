@@ -4,7 +4,7 @@ from django.contrib import admin
 from prediction.models.judgment import Judgement
 
 
-class Argument(models.Model):
+class PatternDetected(models.Model):
     id = models.AutoField(primary_key=True)
     label = models.CharField(max_length=200, null=True)
     judgement = models.ForeignKey(
@@ -25,7 +25,7 @@ class Argument(models.Model):
         }
 
     def to_str(self):
-        message = "Argument: " + str(self.label) + "\n"
+        message = "PatternDetected: " + str(self.label) + "\n"
         message += "Règle métier: " + str(self.input_text) + "\n"
         message += "Abstract: " + str(self.abstract)
         return message
@@ -35,7 +35,7 @@ class Argument(models.Model):
 # Admin #
 #########
 
-class ArgumentAdmin (admin.ModelAdmin):
+class PatternDetectedAdmin (admin.ModelAdmin):
         list_display = (
             'id',
             'label',
@@ -48,5 +48,5 @@ class ArgumentAdmin (admin.ModelAdmin):
 # Inline #
 ##########
 
-class ArgumentInline(admin.TabularInline):
-    model = Argument
+class PatternDetectedInline(admin.TabularInline):
+    model = PatternDetected
