@@ -20,10 +20,24 @@ Follow these documentation :
 - Don't forget to restart terminal after setting GCE_INI_PATH in .bash_profile
 
 To test ansible/gcloud config:
-`ansible -i /opt/ansible/inventory tag_http-server -m ping --user johann.bertrand.ng`
+<br>`ansible -i /opt/ansible/inventory tag_http-server -m ping --user [gcp_user]`
 
 
 # Playbooks
 ### Setup environment
 
 `ansible-playbook -i /opt/ansible/inventory setup.yml --user [gcp-user] --extra-vars '{"gcp_instance":"[gcp-instance-name]"}`
+
+# Staging workflow (no CI) TODO 
+- Setup staging VM
+- Fetch git theolex repo on Staging VM TODO
+- Install source dependencies (npm)
+- Run Tests
+- Build Docker image
+- Run Docker image
+
+# Production workflow TODO
+- Hook github to GCP Cloud Build
+- Run tests and if ok then build Docker image on GCP Cloud Build
+- After docker image build, push to GCP Container Registry
+- Manual script to deploy Docker image from Container Registry to Production VM 
