@@ -1,0 +1,23 @@
+- name: Download getdocker script
+  shell: "curl -fsSL {{ getdocker_url}} -o {{ getdocker_script }}"
+  args:
+    chdir: "{{ home_dir }}"
+    warn: no
+  tags:
+    - docker
+
+- name: Set getdocker script to executable
+  file:
+    path: "{{ home_dir }}/{{ getdocker_script }}"
+    mode: '0555'
+  tags:
+    - docker
+
+- name: Execute getdocker script to install docker repo
+  become: yes
+  become_user: root
+  command: "./{{ getdocker_script }}"
+  args:
+    chdir: "{{ home_dir }}"
+  tags:
+    - docker

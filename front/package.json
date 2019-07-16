@@ -5,6 +5,10 @@
     "build": "next build ./src",
     "start": "next start ./src"
   },
+  "engines": {
+    "node": "^12.6.0",
+    "npm": "^6.9.0"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",

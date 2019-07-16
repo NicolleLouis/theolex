@@ -1,0 +1,4 @@
+nvm_version: "v0.34.0"
+nvm_install_script: "install.sh"
+nvm_url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/{{ nvm_install_script }}"
+nodejs_version: "12.6"
