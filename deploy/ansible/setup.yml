@@ -1,0 +1,13 @@
+- name: Install required librairies
+  hosts: "{{ gcp_instance }}"
+  become: yes
+  become_user: root
+
+  roles:
+
+    - base
+    - docker
+    - {
+        role: nodejs,
+        become_user: "{{ nvm_user }}"
+      }
