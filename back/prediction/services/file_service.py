@@ -4,7 +4,6 @@ import urllib
 import chardet
 import os
 import docx2txt
-import textract
 import zipfile
 import shutil
 
@@ -27,9 +26,6 @@ def extract_text_from_file(data):
 
     elif file_extension == ".docx":
         return docx2txt.process(file_to_extract)
-
-    elif file_extension == ".rtf":
-        return textract.process(file_to_extract).decode("windows-1252")
 
     else:
         raise ValueError("This file extension \"" + file_extension + "\" is not recognized")
@@ -61,12 +57,6 @@ def extract_judgement_zip(data):
     from prediction.services.repository.judgement_import_repository import create_judgement_import
 
     extract_zip(data, create_judgement_import)
-
-
-def extract_mail_zip(data):
-    from prediction.services.repository.mail_import_repository import create_mail_import
-
-    extract_zip(data, create_mail_import)
 
 
 def extract_zip(data, import_function):

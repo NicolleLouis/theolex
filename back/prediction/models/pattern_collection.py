@@ -1,5 +1,5 @@
 from django.db import models
-from import_export.admin import ImportExportModelAdmin
+from django.contrib import admin
 
 
 class PatternCollection(models.Model):
@@ -10,7 +10,7 @@ class PatternCollection(models.Model):
         return self.label
 
 
-class PatternCollectionAdmin (ImportExportModelAdmin):
+class PatternCollectionAdmin (admin.ModelAdmin):
         list_display = (
             'label',
         )

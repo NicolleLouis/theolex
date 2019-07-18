@@ -14,6 +14,5 @@ urlpatterns = [
         name='arguments_invalidity_of_the_bond'
     ),
     url(r'^is_favorable_result$', views.is_favorable_results, name='is_favorable_results'),
-    url(r'^mail_recurrence$', views.mail_recurrence, name='mail_recurrence'),
     url(r'^$', views.home, name='home'),
 ]
