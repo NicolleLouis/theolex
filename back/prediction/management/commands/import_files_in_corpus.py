@@ -3,7 +3,6 @@ from django.conf import settings
 
 import docx2txt
 import os
-import textract
 
 from prediction.services.import_service.judgement_import_service import load_judgement
 
@@ -419,7 +418,5 @@ class Command(BaseCommand):
         file_to_extract = os.path.join(settings.MEDIA_ROOT, filename)
         if filename.lower().endswith(".docx"):
             return docx2txt.process(file_to_extract)
-        if filename.lower().endswith(".rtf"):
-            return textract.process(file_to_extract).decode("windows-1252")
         error_message = "file extension not recognized: " + filename
         raise ValueError(error_message)

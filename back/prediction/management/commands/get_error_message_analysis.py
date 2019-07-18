@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 
 from prediction.services.repository.judgement_repository import get_all_judgement
-from prediction.services.repository.mail_repository import get_all_mail
 
 
 class Command(BaseCommand):
@@ -12,8 +11,7 @@ class Command(BaseCommand):
         # Parameters #
         ##############
 
-        test_message = "Could not compute date mail"
-        is_judgement = True
+        test_message = "ToDo replace me"
 
         ########
         # Main #
@@ -24,7 +22,7 @@ class Command(BaseCommand):
             'Success': 0
         }
         error_cases = []
-        items = get_all_judgement() if is_judgement else get_all_mail()
+        items = get_all_judgement()
         for item in items:
             error_message = item.error_message
             if error_message is not None and error_message.find(test_message) > -1:

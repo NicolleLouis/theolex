@@ -47,9 +47,6 @@ INSTALLED_APPS = [
 
     # custom apps below
     'prediction.apps.PredictionConfig',
-    'bootstrap4',
-    'django_cleanup',
-    'import_export',
 ]
 
 MIDDLEWARE = [

@@ -4,8 +4,5 @@ from .pattern_rule import *
 from .argument import *
 from .judgment import *
 from .judgement_import import *
-from .mail import *
-from .mail_import import *
-from .mail_argument import *
 from .judgement_amount import *
 from .judgement_admin import *

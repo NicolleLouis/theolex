@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib import admin
-from import_export.admin import ImportExportModelAdmin
+from django.contrib import admin
 
 from prediction.models.pattern import Pattern
 
@@ -57,7 +57,7 @@ class PatternRule(models.Model):
         return list_rule_filtered
 
 
-class PatternRuleAdmin (ImportExportModelAdmin):
+class PatternRuleAdmin (admin.ModelAdmin):
         list_display = (
             'regex_1',
             'regex_2',

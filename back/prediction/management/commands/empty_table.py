@@ -13,7 +13,7 @@ class Command(BaseCommand):
         # Parameters #
         ##############
 
-        models_to_clean = [Mail, MailImport, MailArgument]
+        models_to_clean = []
 
         ##############
 
