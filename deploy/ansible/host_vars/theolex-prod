@@ -1,2 +1,3 @@
+gcp_project_id: "amiable-dynamo-245709"
 home_dir: "/home/theolex"
-nvm_user: "theolex"
+install_user: "theolex"

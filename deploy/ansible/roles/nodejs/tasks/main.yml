@@ -1,4 +1,7 @@
 - name: Install nvm
+  become: yes
+  become_method: sudo
+  become_user: "{{ install_user }}"
   shell: >
     curl -o- {{ nvm_url }} | bash
   args:
