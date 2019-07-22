@@ -1,24 +1,22 @@
-import styled from "styled-components";
-import Head from "../components/head";
-import Nav from "../components/nav";
+import React from "react";
+import { Helmet } from "react-helmet-async";
+import Sidebar from "../components/Sidebar";
+import MainContent from '../components/MainContent';
 
-const Wrapper = styled.div`
-  text-align: center;
-  img {
-    width: 630px;
-  }
-`;
-
-function Index() {
+const Index = () => {
   return (
-    <div>
-      <Head title="Theolex" />
-      <Nav />
-      <Wrapper>
-        Bienvenue
-      </Wrapper>
-    </div>
+    <>
+      <Helmet>
+        <body id="page-top" />
+      </Helmet>
+      <div id="wrapper">
+        <Sidebar/>
+        <div id="content-wrapper" className="d-flex flex-column">
+          <MainContent/>
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default Index;
