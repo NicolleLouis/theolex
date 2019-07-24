@@ -1,4 +1,4 @@
-FROM node:10.16-alpine
+FROM node:12.6-alpine
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /app
