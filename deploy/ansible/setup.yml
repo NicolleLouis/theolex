@@ -7,7 +7,4 @@
 
     - base
     - docker
-    - {
-        role: nodejs,
-        become_user: "{{ nvm_user }}"
-      }
+    - nodejs

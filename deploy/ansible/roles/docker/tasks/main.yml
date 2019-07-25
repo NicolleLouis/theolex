@@ -15,7 +15,8 @@
 
 - name: Execute getdocker script to install docker repo
   become: yes
-  become_user: root
+  become_method: sudo
+  become_user: "{{ install_user }}"
   command: "./{{ getdocker_script }}"
   args:
     chdir: "{{ home_dir }}"
