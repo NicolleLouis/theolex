@@ -1,0 +1,167 @@
+<!DOCTYPE>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+    {% load static %}
+    <link href="{% static 'css/arguments.css' %}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="vue-instance">
+    {% verbatim %}
+    <div class="title">
+        <span>{{ title }}</span>
+    </div>
+    <div class="subtitle">
+        <span>
+            Arguments favorables
+        </span>
+    </div>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Arguments</th>
+            <th>Pertinence<br/><sub>(Pourcentage de cas favorable sur les cas contenant cet argument)</sub></th>
+            <th>Graphe Pertinence</th>
+        </tr>
+        <tr v-for="argument in favorableArguments">
+            <td>{{ argument['label'] }}</td>
+            <td>{{ argument['pertinence'] }}%</td>
+            <td class="graph">
+                <canvas
+                        v-bind:id="argument['label']"
+                >
+                </canvas>
+            </td>
+        </tr>
+    </table>
+    <div class="subtitle">
+        <span>
+            Arguments défavorables
+        </span>
+    </div>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Arguments</th>
+            <th>Pertinence <br/><sub>(Pourcentage de cas favorable sur les cas contenant cet argument)</sub></th>
+            <th>Graphe Pertinence</th>
+        </tr>
+        <tr v-for="argument in negativeArguments">
+            <td>{{ argument['label'] }}</td>
+            <td>{{ argument['pertinence'] }}%</td>
+            <td class="graph">
+                <canvas
+                        v-bind:id="argument['label']"
+                >
+                </canvas>
+            </td>
+        </tr>
+    </table>
+    {% endverbatim %}
+</div>
+
+<script>
+    // our VueJs instance bound to the div with an id of vue-instance
+    const vm = new Vue({
+        el: '#vue-instance',
+        data: function () {
+            return {
+                arguments: {{ arguments | safe }},
+                title: "{{ title | escapejs }}",
+                groupedArguments: [],
+                favorableArguments: [],
+                negativeArguments: [],
+            }
+        },
+        methods: {
+            indexInGroupArguments: function (label) {
+                if(this.groupedArguments){
+                    for (let i = 0; i < this.groupedArguments.length; i++){
+                        if (this.groupedArguments[i]['label'] === label){
+                            return i
+                        }
+                    }
+                }
+                return -1
+            },
+            computePertinence: function () {
+                this.groupedArguments.map(function(argument){
+                    argument['pertinence'] = Math.floor((argument['favorableOccurence'] / argument['occurence']) * 100)
+                })
+            },
+            orderArguments: function () {
+                this.favorableArguments.sort(function(a, b){
+                    return b['pertinence'] - a['pertinence']
+                });
+                this.negativeArguments.sort(function(a, b){
+                    return a['pertinence'] - b['pertinence']
+                })
+            },
+            splitArguments: function() {
+                const _this = this;
+                this.groupedArguments.map(function(argument) {
+                    if (argument['pertinence'] > 50){
+                        _this.favorableArguments.push(argument)
+                    }
+                    else {
+                        _this.negativeArguments.push(argument)
+                    }
+                })
+            },
+            drawPieChart: function () {
+                this.groupedArguments.map(function(argument) {
+                    let ctx = document.getElementById(argument['label']).getContext('2d');
+                    let chart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Favorable', 'Défavorable'],
+                            datasets: [{
+                                data: [
+                                    argument['favorableOccurence'],
+                                    argument['occurence'] - argument['favorableOccurence']
+                                ],
+                                backgroundColor: [
+                                    'rgb(0, 120, 12)',
+                                    'rgb(237, 41, 57)'
+                                ]
+                            }]
+                        }
+                    })
+                })
+            }
+        },
+        mounted() {
+            const _this = this;
+            this.arguments.map(function (argument) {
+                let index = _this.indexInGroupArguments(argument['label']);
+                if (index !== -1) {
+                    _this.groupedArguments[index]['occurence'] += 1;
+                    if (argument['judgement']['is_favorable']) {
+                        _this.groupedArguments[index]['favorableOccurence'] += 1
+                    }
+                }
+                else {
+                    _this.groupedArguments.push({
+                        'label': argument['label'],
+                        'occurence': 1,
+                        'favorableOccurence': argument['judgement']['is_favorable'] ? 1 : 0
+                    })
+                }
+            });
+            this.computePertinence();
+            this.splitArguments();
+            this.orderArguments();
+            $(document).ready(function () {
+                _this.drawPieChart()
+            })
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+    {% load static %}
+    <link href="{% static 'css/arguments.css' %}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="vue-instance">
+    {% verbatim %}
+    <div class="title">
+        <span>Theolex</span>
+    </div>
+    <div class="subtitle">
+        <span>
+            Liste des arguments extraits par l'algorithme
+        </span>
+    </div>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Décision</th>
+            <th>Phrase complète<br/>
+            <th>Concerne la Société Générale?<br/>
+            <th>Est favorable?</th>
+        </tr>
+        <tr v-for="argument in arguments">
+            <td>{{ argument['decision'] }}</td>
+            <td>{{ argument['text'] }}</td>
+            <td>{{ argument['isSoGé'] }}</td>
+            <td>{{ argument['isFavorable'] }}</td>
+        </tr>
+    </table>
+    <div class="subtitle">
+        <span>
+            Résultat: l'arrêt est il favorable à la banque?
+        </span>
+    </div>
+    <div class="result">
+        <span>
+            {{ result }}
+        </span>
+    </div>
+    <div class="subtitle">
+        <span>
+            Texte de l'arrêt analysé
+        </span>
+    </div>
+    <div class="judgement_text">
+        <span>
+        {{ judgementText }}
+    </span>
+    </div>
+    {% endverbatim %}
+</div>
+
+<script>
+    // our VueJs instance bound to the div with an id of vue-instance
+    const vm = new Vue({
+        el: '#vue-instance',
+        data: function () {
+            return {
+                arguments: {{ arguments | safe }},
+                judgementText: "{{ text | escapejs }}",
+                result: '{{ result | escapejs }}'
+            }
+        },
+        methods: {
+        },
+        mounted() {
+        }
+    });
+</script>
+</body>
+</html>
