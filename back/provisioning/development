@@ -1,9 +1,0 @@
-[all:vars]
-env=development
-
-[webservers]
-theolex.sicara.tech nginx_use_letsencrypt=true
-
-[ssh_connection]
-ssh_args=-o ForwardAgent=yes
-
