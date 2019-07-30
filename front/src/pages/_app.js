@@ -3,20 +3,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import App, { Container } from "next/app";
 import { ThemeProvider } from "styled-components";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "startbootstrap-sb-admin-2/css/sb-admin-2.css";
-import '@fortawesome/fontawesome-svg-core/styles.css';
-
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faTable,
-  faBars,
-  fas,
-  faSearch
-} from "@fortawesome/free-solid-svg-icons";
-
-library.add(faTable, faBars, fas, faSearch);
-
+import "@fortawesome/fontawesome-free/css/all.min.css";
 const theme = {
   colors: {
     primary: "#0070f3"
@@ -47,7 +34,7 @@ export default class MyApp extends App {
             meta={[
               {
                 name: "viewport",
-                content: "width=device-width, initial-scale=1, shrink-to-fit=n"
+                content: "width=device-width, initial-scale=1, shrink-to-fit=no"
               },
               { property: "og:title", content: "Theolex" },
               {
@@ -62,12 +49,9 @@ export default class MyApp extends App {
               {
                 rel: "stylesheet",
                 href:
-                  "https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+                  "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
               }
             ]}
-            bodyAttributes={{
-              class: "g-sidenav-show g-sidenav-pinned"
-            }}
           />
           <ThemeProvider theme={theme}>
             <Component {...pageProps} />

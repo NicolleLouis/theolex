@@ -2,3 +2,8 @@
 /build
 /dist
 /.next
+
+# Dev folders
+/components/argon
+/components/sbadmin
+/static/assets
