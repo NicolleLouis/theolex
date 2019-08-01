@@ -25,15 +25,9 @@ const Head = props => {
       {/* <!-- Favicon --> */}
       <link
         rel="icon"
-        href={require("../static/assets/img/brand/favicon.png")}
+        href={require("../static/img/brand/favicon.ico")}
         type="image/png"
       />
-
-      {/* <!-- Fonts --> */}
-      {/*<link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-      rel="stylesheet"
-    />*/}
 
       {/* <!-- Icons --> */}
       <link href="../static/vendor/nucleo/css/nucleo.css" rel="stylesheet" />

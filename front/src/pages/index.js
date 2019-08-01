@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/sidebar";
 import Head from "../components/head";
 import { Helmet } from "react-helmet-async";
-import MainContent from "../components/main-content";
+import Main from "../components/main";
+import Search from '../components/search/search';
 //import { createBrowserH/*istory } from 'history';
 
 //const history = createBrowserHistory();
@@ -32,9 +33,9 @@ const Index = () => {
           <body className="g-sidenav-show g-sidenav-pinned" />
         </Helmet>
       )}
-      <Head />
+      <Head title="Home"/>
       <Sidebar sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
-      <MainContent sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
+      <Main sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
       {sidenavOpen ? (
         <div className="backdrop d-xl-none" onClick={toggleSidenav} />
       ) : null}
