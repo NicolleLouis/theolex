@@ -1,44 +1,56 @@
-import React from 'react'
-import NextHead from 'next/head'
-import { string } from 'prop-types'
+import React, { useEffect } from "react";
+import NextHead from "next/head";
+import { string } from "prop-types";
+import cookie from 'js-cookie';
 
-const defaultDescription = ''
-const defaultOGURL = ''
-const defaultOGImage = ''
+const defaultDescription = "";
 
-const Head = props => (
-  <NextHead>
-    <meta charSet="UTF-8" />
-    <title>{props.title || ''}</title>
-    <meta
-      name="description"
-      content={props.description || defaultDescription}
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
-    <link rel="apple-touch-icon" href="/static/touch-icon.png" />
-    <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
-    <link rel="icon" href="/static/favicon.ico" />
-    <meta property="og:url" content={props.url || defaultOGURL} />
-    <meta property="og:title" content={props.title || ''} />
-    <meta
-      property="og:description"
-      content={props.description || defaultDescription}
-    />
-    <meta name="twitter:site" content={props.url || defaultOGURL} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={props.ogImage || defaultOGImage} />
-    <meta property="og:image" content={props.ogImage || defaultOGImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-  </NextHead>
-)
+const Head = props => {
+  useEffect(() => {
+    window.$ = window.jQuery = require("jquery");
+    require("bootstrap");
+    window.Cookies = cookie;
+
+  });
+
+  return (
+    <NextHead>
+      <meta charSet="UTF-8" />
+      <title>{props.title || ""}</title>
+      <meta
+        name="description"
+        content={props.description || defaultDescription}
+      />
+
+      {/* <!-- Favicon --> */}
+      <link
+        rel="icon"
+        href={require("../static/assets/img/brand/favicon.png")}
+        type="image/png"
+      />
+
+      {/* <!-- Fonts --> */}
+      {/*<link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet"
+    />*/}
+
+      {/* <!-- Icons --> */}
+      <link href="../static/vendor/nucleo/css/nucleo.css" rel="stylesheet" />
+
+      {/* !--  CSS --> */}
+      <link
+        type="text/css"
+        href="../static/vendor/argon/css/argon.css"
+        rel="stylesheet"
+      />
+    </NextHead>
+  );
+};
 
 Head.propTypes = {
   title: string,
-  description: string,
-  url: string,
-  ogImage: string
-}
+  description: string
+};
 
-export default Head
+export default Head;

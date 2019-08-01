@@ -1,9 +1,16 @@
 require("dotenv").config();
 
 const path = require("path");
+const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
+const withCss = require("@zeit/next-css");
+const withImages = require("next-images");
+const {
+  PHASE_DEVELOPMENT_SERVER,
+  PHASE_PRODUCTION_BUILD
+} = require("next/constants");
 
-module.exports = {
+const nextConfig = {
   webpack: config => {
     config.plugins = config.plugins || [];
 
@@ -14,12 +21,35 @@ module.exports = {
       new Dotenv({
         path: path.join(__dirname, ".env"),
         systemvars: true
+      }),
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+        argon: path.resolve(
+          path.join(__dirname, "src/static/vendor/argon/js/argon.js")
+        )
+        // In case you imported plugins individually, you must also require them here:..
       })
     ];
+    config.module.rules.push(
+      {
+        test: /\.(eot|woff|woff2|ttf|svg|jpe?g|gif)(\?\S*)?$/,
+        loader: "url-loader?limit=100000&name=[name].[ext]"
+      }
+    );
+
     // Fixes npm packages that depend on `fs` module
     config.node = {
       fs: "empty"
     };
     return config;
   }
+};
+
+module.exports = phase => {
+  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+    return withCss(withImages(nextConfig));
+  }
+  return withImages(nextConfig);
 };

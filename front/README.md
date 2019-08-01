@@ -1,4 +1,6 @@
-# Theolex front-end  
+
+# Theolex front-end for Docker
+=======
 Use `theolex/front` as reference folder
 
 # Installation
@@ -10,7 +12,7 @@ Create config file `.env` with following variables:
 - Run  in `theolex/front/`
 <br>`docker build -t theolex-front .`
 
-## Run Image in Dev mode
+## Run Image in Interactive mode
 - Run  in `theolex/front/`
 <br>`docker container run -it -p 3000:3000 theolex-front`
 
