@@ -2,6 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 const SearchTopnav = props => {
+
   // function that on mobile devices makes the search open
   const openSearch = () => {
     document.body.classList.add("g-navbar-search-showing");
@@ -48,6 +49,7 @@ const SearchTopnav = props => {
                     className="form-control"
                     placeholder="Search"
                     type="text"
+                    onChange={event => props.setQuery(event.target.value)}
                   />
                 </div>
               </div>

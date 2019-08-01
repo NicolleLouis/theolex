@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styles from "styled-components";
-import ResultsList from "./results-list";
+import ResultsList from "../results/results-list";
 
 const ResultsCounter = styles.div`
   margin-left: 40px;
 `;
 
-const SearchResults = () => {
-  const [countResults, setCounResults] = useState(1);
-
+const SearchResults = props => {
+  console.log(props);
   return (
     <>
-      <ResultsCounter>{countResults} résultats</ResultsCounter>
-      {countResults !== 0 && <ResultsList />}
+      {props.isError && <div>Something went wrong ...</div>}
+      {props.isLoading ? (
+        <div>Loading ...</div>
+      ) : (
+        <ResultsCounter>{props.data.length} résultats</ResultsCounter>
+      )}
+      <br/>
+      <ResultsList data={props.data} />
     </>
   );
 };
