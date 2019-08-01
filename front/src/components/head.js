@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NextHead from "next/head";
 import { string } from "prop-types";
-import cookie from 'js-cookie';
+import cookie from "js-cookie";
 
 const defaultDescription = "";
 
@@ -10,7 +10,6 @@ const Head = props => {
     window.$ = window.jQuery = require("jquery");
     require("bootstrap");
     window.Cookies = cookie;
-
   });
 
   return (

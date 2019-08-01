@@ -3,7 +3,7 @@ const express = require("express");
 const http = require("http");
 const next = require("next");
 const dpasAPI = require("./dpas-api");
-const routes = require('./routes')
+const routes = require("./routes");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({

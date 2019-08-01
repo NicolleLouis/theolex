@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 
-const SearchTopnav = (props) => {
+const SearchTopnav = props => {
   // function that on mobile devices makes the search open
   const openSearch = () => {
     document.body.classList.add("g-navbar-search-showing");
@@ -30,13 +30,12 @@ const SearchTopnav = (props) => {
   };
   return (
     <>
-      <nav className=
-        "navbar-top navbar-expand border-bottom navbar-light bg-secondary"
-      >
+      <nav className="navbar-top navbar-expand border-bottom navbar-light bg-secondary">
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form
-              className="navbar-search form-inline mr-sm-3 navbar-search-light" id="navbar-search-main"
+              className="navbar-search form-inline mr-sm-3 navbar-search-light"
+              id="navbar-search-main"
             >
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative input-group-merge">
@@ -67,18 +66,17 @@ const SearchTopnav = (props) => {
             <ul className="navbar-nav align-items-center ml-md-auto">
               <li className="nav-item d-xl-none">
                 <div
-                  className={classnames(
-                    "pr-3 sidenav-toggler",
-                    { active: props.sidenavOpen }
-                  )}
+                  className={classnames("pr-3 sidenav-toggler", {
+                    active: props.sidenavOpen
+                  })}
                   data-action="sidenav-pin"
                   data-target="#sidenav-main"
                   onClick={props.toggleSidenav}
                 >
                   <div className="sidenav-toggler-inner">
-                    <i className="sidenav-toggler-line"/>
-                    <i className="sidenav-toggler-line"/>
-                    <i className="sidenav-toggler-line"/>
+                    <i className="sidenav-toggler-line" />
+                    <i className="sidenav-toggler-line" />
+                    <i className="sidenav-toggler-line" />
                   </div>
                 </div>
               </li>
@@ -90,12 +88,10 @@ const SearchTopnav = (props) => {
                   data-target="#navbar-search-main"
                   onClick={openSearch}
                 >
-                  <i className="ni ni-zoom-split-in"/>
+                  <i className="ni ni-zoom-split-in" />
                 </a>
               </li>
-
             </ul>
-
           </div>
         </div>
       </nav>

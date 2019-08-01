@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "styled-components";
 import classnames from "classnames";
 
@@ -6,22 +6,18 @@ const Logo = styles.img`
   max-height: 5rem !important;
 `;
 
-const Sidebar = (props) => {
+const Sidebar = props => {
   console.log("SidebarLayout Props", props);
 
   // makes the sidenav normal on hover (actually when mouse enters on it)
   const onMouseEnterSidenav = () => {
-    console.log("onMouseEnterSidenav");
     if (!document.body.classList.contains("g-sidenav-pinned")) {
-      console.log("add g-sidenav-show");
       document.body.classList.add("g-sidenav-show");
     }
   };
   // makes the sidenav mini on hover (actually when mouse leaves from it)
   const onMouseLeaveSidenav = () => {
-    console.log("onMouseLeaveSidenav")
     if (!document.body.classList.contains("g-sidenav-pinned")) {
-      console.log("remove g-sidenav-show");
       document.body.classList.remove("g-sidenav-show");
     }
   };
@@ -29,7 +25,9 @@ const Sidebar = (props) => {
     <>
       <nav
         className="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light"
-        id="sidenav-main" onMouseEnter={onMouseEnterSidenav} onMouseLeave={onMouseLeaveSidenav}
+        id="sidenav-main"
+        onMouseEnter={onMouseEnterSidenav}
+        onMouseLeave={onMouseLeaveSidenav}
       >
         <div className="scrollbar-inner">
           <div className="sidenav-header d-flex align-items-center">
@@ -72,7 +70,7 @@ const Sidebar = (props) => {
                     aria-expanded="true"
                     aria-controls="navbar-dpa"
                   >
-                    <i className="ni ni-single-copy-04 text-pink"/>
+                    <i className="ni ni-single-copy-04 text-pink" />
                     <span className="nav-link-text">DPA</span>
                   </a>
                 </li>
@@ -84,7 +82,7 @@ const Sidebar = (props) => {
                     aria-expanded="true"
                     aria-controls="navbar-jurisprudence"
                   >
-                    <i className="ni ni-single-copy-04 text-blue"/>
+                    <i className="ni ni-single-copy-04 text-blue" />
                     <span className="nav-link-text">Jurisprudences</span>
                   </a>
                 </li>

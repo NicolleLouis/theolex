@@ -5,8 +5,8 @@ import SearchResults from './search-results';
 const Search = () => {
   return (
     <>
-      <SearchTopnav/>
-      <SearchResults/>
+      <SearchTopnav />
+      <SearchResults />
     </>
   );
 };

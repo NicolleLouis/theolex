@@ -4,13 +4,7 @@ import Sidebar from "../components/sidebar";
 import Head from "../components/head";
 import { Helmet } from "react-helmet-async";
 import Main from "../components/main";
-import Search from '../components/search/search';
-//import { createBrowserH/*istory } from 'history';
-
-//const history = createBrowserHistory();
-
-// Get the current location.
-//const location = history.location;*/
+import Search from "../components/search/search";
 
 const Index = () => {
   const [sidenavOpen, setSidenavOpen] = useState(true);
@@ -33,7 +27,7 @@ const Index = () => {
           <body className="g-sidenav-show g-sidenav-pinned" />
         </Helmet>
       )}
-      <Head title="Home"/>
+      <Head title="Home" />
       <Sidebar sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
       <Main sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
       {sidenavOpen ? (

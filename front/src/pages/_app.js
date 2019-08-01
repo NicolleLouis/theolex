@@ -4,6 +4,7 @@ import App, { Container } from "next/app";
 import { ThemeProvider } from "styled-components";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
 const theme = {
   colors: {
     primary: "#0070f3"
