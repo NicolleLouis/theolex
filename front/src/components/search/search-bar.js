@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 
-const SearchTopnav = props => {
+const SearchBar = props => {
 
   // function that on mobile devices makes the search open
   const openSearch = () => {
@@ -31,7 +31,7 @@ const SearchTopnav = props => {
   };
   return (
     <>
-      <nav className="navbar-top navbar-expand border-bottom navbar-light bg-secondary">
+      <nav className="navbar navbar-top navbar-expand-md border-bottom navbar-search-light bg-secondary">
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form
@@ -39,11 +39,11 @@ const SearchTopnav = props => {
               id="navbar-search-main"
             >
               <div className="form-group mb-0">
-                <div className="input-group input-group-alternative input-group-merge">
+                <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <span className="input-group-text">
+                    <button className="input-group-text">
                       <i className="fas fa-search" />
-                    </span>
+                    </button>
                   </div>
                   <input
                     className="form-control"
@@ -69,7 +69,7 @@ const SearchTopnav = props => {
               <li className="nav-item d-xl-none">
                 <div
                   className={classnames("pr-3 sidenav-toggler", {
-                    active: props.sidenavOpen
+                    active: props.isSidenavOpen
                   })}
                   data-action="sidenav-pin"
                   data-target="#sidenav-main"
@@ -101,4 +101,4 @@ const SearchTopnav = props => {
   );
 };
 
-export default SearchTopnav;
+export default SearchBar;

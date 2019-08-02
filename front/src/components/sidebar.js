@@ -7,7 +7,6 @@ const Logo = styles.img`
 `;
 
 const Sidebar = props => {
-  console.log("SidebarLayout Props", props);
 
   // makes the sidenav normal on hover (actually when mouse enters on it)
   const onMouseEnterSidenav = () => {
@@ -41,7 +40,7 @@ const Sidebar = props => {
             <div className="ml-auto">
               <div
                 className={classnames("sidenav-toggler d-none d-xl-block", {
-                  active: props.sidenavOpen
+                  active: props.isSidenavOpen
                 })}
                 data-action="sidenav-unpin"
                 data-target="#sidenav-main"
@@ -71,7 +70,7 @@ const Sidebar = props => {
                     aria-controls="navbar-dpa"
                   >
                     <i className="ni ni-single-copy-04 text-pink" />
-                    <span className="nav-link-text">DPA</span>
+                    <span className="nav-link-text ml-3">DPA</span>
                   </a>
                 </li>
                 <li className="nav-item">
@@ -83,7 +82,7 @@ const Sidebar = props => {
                     aria-controls="navbar-jurisprudence"
                   >
                     <i className="ni ni-single-copy-04 text-blue" />
-                    <span className="nav-link-text">Jurisprudences</span>
+                    <span className="nav-link-text ml-3">Jurisprudences</span>
                   </a>
                 </li>
               </ul>

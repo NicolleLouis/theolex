@@ -3,7 +3,7 @@ import React from "react";
 const ResultsList = props => {
   return (
     <>
-      <div className="main-content">
+      <div className="">
         {props.data.length > 0 && props.data.map((elt, index) => {
           return (
             <div key={index} className="row mb-3 media text-muted pt-3 border-bottom border-grey">

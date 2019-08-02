@@ -4,10 +4,9 @@ import Sidebar from "../components/sidebar";
 import Head from "../components/head";
 import { Helmet } from "react-helmet-async";
 import Main from "../components/main";
-import Search from "../components/search/search";
 
 const Index = () => {
-  const [sidenavOpen, setSidenavOpen] = useState(true);
+  const [isSidenavOpen, setIsSidenavOpen] = useState(true);
 
   const toggleSidenav = () => {
     if (document.body.classList.contains("g-sidenav-pinned")) {
@@ -17,20 +16,20 @@ const Index = () => {
       document.body.classList.add("g-sidenav-pinned");
       document.body.classList.remove("g-sidenav-hidden");
     }
-    setSidenavOpen(!sidenavOpen);
+    setIsSidenavOpen(!isSidenavOpen);
   };
 
   return (
     <>
-      {sidenavOpen && (
+      {isSidenavOpen && (
         <Helmet>
           <body className="g-sidenav-show g-sidenav-pinned" />
         </Helmet>
       )}
       <Head title="Home" />
-      <Sidebar sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
-      <Main sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
-      {sidenavOpen ? (
+      <Sidebar isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
+      <Main isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
+      {isSidenavOpen ? (
         <div className="backdrop d-xl-none" onClick={toggleSidenav} />
       ) : null}
     </>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SearchTopnav from "./search-topnav";
+import SearchBar from "./search-bar";
 import SearchResults from "./search-results";
 
 const API = "http://localhost:3000/api/dpas";
 
-const Search = () => {
+const Search = props => {
   const [data, setData] = useState({});
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ const Search = () => {
   }, [query]);
   return (
     <>
-      <SearchTopnav query={query} setQuery={setQuery} />
+      <SearchBar isSidenavOpen={props.isSidenavOpen} query={query} setQuery={setQuery} />
       <SearchResults data={data} query={query} isError={isError} isLoading={isLoading} />
     </>
   );

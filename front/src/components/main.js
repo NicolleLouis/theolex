@@ -1,10 +1,10 @@
 import React from "react";
 import Search from "./search/search";
 
-const Main = () => {
+const Main = props => {
   return (
     <div className="main-content" id="panel">
-      <Search />
+      <Search isSidenavOpen={props.isSidenavOpen} />
     </div>
   );
 };
