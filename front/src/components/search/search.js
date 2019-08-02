@@ -6,8 +6,9 @@ import SearchResults from "./search-results";
 const API = "http://localhost:3000/api/dpas";
 
 const Search = props => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ hits: [] });
   const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -24,11 +25,21 @@ const Search = props => {
       setIsLoading(false);
     };
     fetchData();
-  }, [query]);
+  }, [search]);
   return (
     <>
-      <SearchBar isSidenavOpen={props.isSidenavOpen} query={query} setQuery={setQuery} />
-      <SearchResults data={data} query={query} isError={isError} isLoading={isLoading} />
+      <SearchBar
+        isSidenavOpen={props.isSidenavOpen}
+        query={query}
+        setQuery={setQuery}
+        setSearch={setSearch}
+      />
+      <SearchResults
+        data={data}
+        query={query}
+        isError={isError}
+        isLoading={isLoading}
+      />
     </>
   );
 };

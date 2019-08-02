@@ -41,7 +41,7 @@ const SearchBar = props => {
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <button className="input-group-text">
+                    <button className="input-group-text bg-gradient-blue" onClick={() => props.setSearch(query)}>
                       <i className="fas fa-search" />
                     </button>
                   </div>
