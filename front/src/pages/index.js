@@ -3,16 +3,10 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/sidebar";
 import Head from "../components/head";
 import { Helmet } from "react-helmet-async";
-import MainContent from "../components/main-content";
-//import { createBrowserH/*istory } from 'history';
-
-//const history = createBrowserHistory();
-
-// Get the current location.
-//const location = history.location;*/
+import Main from "../components/main";
 
 const Index = () => {
-  const [sidenavOpen, setSidenavOpen] = useState(true);
+  const [isSidenavOpen, setIsSidenavOpen] = useState(true);
 
   const toggleSidenav = () => {
     if (document.body.classList.contains("g-sidenav-pinned")) {
@@ -22,20 +16,20 @@ const Index = () => {
       document.body.classList.add("g-sidenav-pinned");
       document.body.classList.remove("g-sidenav-hidden");
     }
-    setSidenavOpen(!sidenavOpen);
+    setIsSidenavOpen(!isSidenavOpen);
   };
 
   return (
     <>
-      {sidenavOpen && (
+      {isSidenavOpen && (
         <Helmet>
           <body className="g-sidenav-show g-sidenav-pinned" />
         </Helmet>
       )}
-      <Head />
-      <Sidebar sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
-      <MainContent sidenavOpen={sidenavOpen} toggleSidenav={toggleSidenav} />
-      {sidenavOpen ? (
+      <Head title="Home" />
+      <Sidebar isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
+      <Main isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
+      {isSidenavOpen ? (
         <div className="backdrop d-xl-none" onClick={toggleSidenav} />
       ) : null}
     </>

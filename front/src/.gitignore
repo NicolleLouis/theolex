@@ -4,6 +4,6 @@
 /.next
 
 # Dev folders
-/components/argon
-/components/sbadmin
+/components/0-argon/
+/components/0-sbadmin/
 /static/assets
