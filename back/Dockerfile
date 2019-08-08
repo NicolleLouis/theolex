@@ -21,3 +21,6 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
 
 COPY . /www/
+
+RUN python3 /www/manage.py makemigrations
+RUN python3 /www/manage.py migrate
