@@ -20,7 +20,7 @@ const ResultsLabels = props => {
                   aria-label="endettement-excessif"
 
                 >
-                  <rect width="100%" height="100%" fill="#ed1250" />
+                  <rect width="100%" height="100%" fill="#007bff" />
                   <text
                     x="5%"
                     y="70%"
@@ -43,7 +43,7 @@ const ResultsLabels = props => {
                   role="img"
                   aria-label="defaut-conseil"
                 >
-                  <rect width="100%" height="100%" fill="#ed1250" />
+                  <rect width="100%" height="100%" fill="#007bff" />
                   <text
                     x="5%"
                     y="70%"

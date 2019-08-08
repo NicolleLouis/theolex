@@ -35,7 +35,7 @@ const ResultsList = props => {
                     role="img"
                     aria-label="amount"
                   >
-                    <rect width="100%" height="100%" fill="#007bff" />
+                    <rect width="100%" height="100%" fill="#ed1250" />
                     <text
                       x="20%"
                       y="70%"
