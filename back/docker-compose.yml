@@ -5,17 +5,8 @@ services:
     restart: on-failure
     env_file:
       - ./.env
-    command: gunicorn --bind 0.0.0.0:8080 dockerizeddjango.wsgi
-    ports:
-      - "8080:8080"
-    depends_on:
-      - nginx
-  nginx:
-    image: "nginx"
-    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./staticfiles:/static
-      - ./mediafiles:/media
+      - .:/www
     ports:
-      - "80:80"
+      - "8000:8000"
