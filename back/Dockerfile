@@ -1,9 +1,11 @@
 FROM python:3.6-alpine
 
 RUN apk --update add \
+    linux-headers \
     build-base \
-    postgresql \
-    postgresql-dev \
+    musl-dev \
+#    postgresql \
+#    postgresql-dev \
     libpq \
     # pillow dependencies
     jpeg-dev \
