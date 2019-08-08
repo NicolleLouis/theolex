@@ -4,7 +4,6 @@ RUN apk --update add \
     linux-headers \
     build-base \
     musl-dev \
-    libpq-dev \
     python-dev \
 #    postgresql \
 #    postgresql-dev \
