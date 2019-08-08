@@ -1,10 +1,21 @@
-version: '3'
-
+version: "3"
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
+    restart: on-failure
+    env_file:
+      - ./.env
+    command: gunicorn --bind 0.0.0.0:8080 dockerizeddjango.wsgi
     ports:
-      - "8000:8000"
+      - "8080:8080"
+    depends_on:
+      - nginx
+  nginx:
+    image: "nginx"
+    restart: always
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./staticfiles:/static
+      - ./mediafiles:/media
+    ports:
+      - "80:80"
