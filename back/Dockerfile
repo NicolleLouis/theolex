@@ -16,6 +16,7 @@ RUN mkdir /www
 WORKDIR /www
 COPY requirements.txt /www/
 RUN pip install -r requirements.txt
+EXPOSE 8000
 
 ENV PYTHONUNBUFFERED 1
 
