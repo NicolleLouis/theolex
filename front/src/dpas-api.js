@@ -30,6 +30,12 @@ const dpas = [
   }
 ];
 
+
+router.get("/api/get_all_results", (req, res) => {
+  const orderedDpas = dpas.sort((t1, t2) => t2._id - t1._id);
+  res.send({"hits": [{"name": "Decision num\u00e9ro 1: Test", "text": "Lorem ipsum", "monetary_sanction": 100.0, "type": "DPA", "decision_date": "2019-08-09T11:10:47Z"}]});
+});
+
 router.get("/api/dpas", (req, res) => {
   const orderedDpas = dpas.sort((t1, t2) => t2._id - t1._id);
   res.send(orderedDpas);

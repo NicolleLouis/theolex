@@ -8,10 +8,13 @@ const SearchResults = props => {
       {props.isLoading ? (
         <div>Loading ...</div>
       ) : (
+        <>
         <div>{props.data.hits.length} résultats</div>
+        <br/>
+        <ResultsList data={props.data} />
+        </>
       )}
-      <br/>
-      <ResultsList data={props.data} />
+
     </div>
   );
 };
