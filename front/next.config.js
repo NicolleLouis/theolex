@@ -11,6 +11,9 @@ const {
 } = require("next/constants");
 
 const nextConfig = {
+  publicRuntimeConfig: {
+    API_URL: process.env.API_HOST +"/api/get_all_results"
+  },
   webpack: config => {
     config.plugins = config.plugins || [];
 
@@ -32,12 +35,10 @@ const nextConfig = {
         // In case you imported plugins individually, you must also require them here:..
       })
     ];
-    config.module.rules.push(
-      {
-        test: /\.(eot|woff|woff2|ttf|svg|jpe?g|gif)(\?\S*)?$/,
-        loader: "url-loader?limit=100000&name=[name].[ext]"
-      }
-    );
+    config.module.rules.push({
+      test: /\.(eot|woff|woff2|ttf|svg|jpe?g|gif)(\?\S*)?$/,
+      loader: "url-loader?limit=100000&name=[name].[ext]"
+    });
 
     // Fixes npm packages that depend on `fs` module
     config.node = {
@@ -48,7 +49,16 @@ const nextConfig = {
 };
 
 module.exports = phase => {
-  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+  console.log("PHASE", phase);
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
+    Object.assign(nextConfig, {
+      publicRuntimeConfig: {
+        API_URL: "http://localhost:3000/api/get_all_results"
+      }
+    });
+    return withCss(withImages(nextConfig));
+  }
+  if (phase === PHASE_PRODUCTION_BUILD) {
     return withCss(withImages(nextConfig));
   }
   return withImages(nextConfig);

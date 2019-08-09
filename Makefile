@@ -9,3 +9,6 @@ python-up:
 
 migrations:
 	docker exec -it back_web_1 python manage.py migrate
+
+front-up:
+	docker-compose -f front/docker-compose.yml up --build -d

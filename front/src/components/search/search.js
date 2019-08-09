@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./search-bar";
 import SearchResults from "./search-results";
+import getConfig from 'next/config'
 
-const API = "http://localhost:8000/api/get_all_results";
+const { publicRuntimeConfig } = getConfig();
+const { API_URL } = publicRuntimeConfig;
 
 const Search = props => {
   const [data, setData] = useState({ hits: [] });
@@ -17,7 +19,7 @@ const Search = props => {
       setIsError(false);
       setIsLoading(true);
       try {
-        const result = await axios(API);
+        const result = await axios(API_URL);
         setData(result.data);
       } catch (error) {
         setIsError(true);
