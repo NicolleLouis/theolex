@@ -3,7 +3,7 @@ import axios from "axios";
 import SearchBar from "./search-bar";
 import SearchResults from "./search-results";
 
-const API = "http://localhost:3000/api/dpas";
+const API = "http://localhost:8000/api/get_all_results";
 
 const Search = props => {
   const [data, setData] = useState({ hits: [] });
