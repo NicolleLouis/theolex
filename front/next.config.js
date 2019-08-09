@@ -12,7 +12,7 @@ const {
 
 const nextConfig = {
   publicRuntimeConfig: {
-    API_URL: "http://0.0.0.0:8000/api/get_all_results"
+    API_URL: process.env.API_HOST +"/api/get_all_results"
   },
   webpack: config => {
     config.plugins = config.plugins || [];
