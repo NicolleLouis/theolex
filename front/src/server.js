@@ -20,17 +20,9 @@ const handle = routes.getRequestHandler(app);
 app.prepare().then(() => {
   const server = express();
 
-  const options = {
-    target: process.env.BACKEND_HOST, // target host
-    changeOrigin: true, // needed for virtual hosted sites
-    pathRewrite: {
-      "^/api/dpas": "/api/get_all_results" // rewrite path
-    }
-  };
-
-  const apiProxy = proxy("/api/dpas", options);
-
-  server.use("/api/dpas", apiProxy);
+  if (dev) {
+    server.use(dpasAPI);
+  }
 
   // handling everything else with Next.js
   server.get("*", handle);

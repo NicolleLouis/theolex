@@ -3,7 +3,7 @@ import React from "react";
 const ResultsLabels = props => {
   return (
     <>
-      {props.value.labels.length > 0 &&
+      {props.value.labels && props.value.labels.length > 0 &&
         props.value.labels.map((elt, index) => {
 
           return (

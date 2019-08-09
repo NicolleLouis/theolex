@@ -1,5 +1,6 @@
 import React from "react";
-import ResultsLabels from './results-labels';
+import ResultsLabels from "./results-labels";
+import Moment from "react-moment";
 
 const ResultsList = props => {
   return (
@@ -13,17 +14,14 @@ const ResultsList = props => {
                 className="row mb-3 media text-muted pt-3 border-bottom border-grey"
               >
                 <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125 ">
-                  <strong className="d-block text-gray-dark">
-                    {elt.title}
-                  </strong>
+                  <strong className="d-block text-gray-dark">{elt.name}</strong>
                   <p className="media-body pb-3 mb-0 small lh-125">
                     {elt.text}
                   </p>
                 </div>
                 <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125">
-                  {elt.date}
+                  <Moment format="YYYY/MM/DD">{elt.decision_date}</Moment>
                 </div>
-
                 <div className="col-md-4 themed-grid-col">
                   <svg
                     className="bd-placeholder-img mr-2 rounded"
@@ -33,7 +31,7 @@ const ResultsList = props => {
                     preserveAspectRatio="xMidYMid slice"
                     focusable="false"
                     role="img"
-                    aria-label="amount"
+                    aria-label="monetary_sanction"
                   >
                     <rect width="100%" height="100%" fill="#ed1250" />
                     <text
@@ -43,7 +41,7 @@ const ResultsList = props => {
                       fontSize="14px"
                       fill="white"
                     >
-                      {elt.amount}
+                      {elt.monetary_sanction} €
                     </text>
                   </svg>
                   <ResultsLabels value={elt} />

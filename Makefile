@@ -6,3 +6,6 @@ python:
 
 python-up:
 	docker-compose -f back/docker-compose.yml up --build -d
+
+front-up:
+	docker-compose -f front/docker-compose.yml up --build -d
