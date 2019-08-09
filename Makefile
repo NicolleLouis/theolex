@@ -3,3 +3,6 @@ local-proxy:
 
 python:
 	docker exec -it back_web_1 /bin/sh
+
+python-up:
+	docker-compose -f back/docker-compose.yml up --build -d

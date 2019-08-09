@@ -15,6 +15,15 @@ class Decision(models.Model):
     def __str__(self):
         return self.name
 
+    def to_json(self):
+        return {
+            'name': self.name,
+            'text': self.text,
+            'monetary_sanction': self.monetary_sanction,
+            'type': self.type,
+            'decision_date': self.decision_date,
+        }
+
 
 class DecisionAdmin(admin.ModelAdmin):
     list_display = (
