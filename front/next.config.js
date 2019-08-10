@@ -14,12 +14,12 @@ const {
 
 // Compute api host needed to call
 is_dev_environment = process.env.ENV == "dev"
-const ifaces = os.networkInterfaces();
-const face_for_current_env = is_dev_environment ? "lo" : "eth0";
+
+const api_url = is_dev_environment ? "http://localhost:8000/api/get_all_results" : "http://34.77.17.149:8000/api/get_all_results";
 
 const nextConfig = {
   publicRuntimeConfig: {
-    API_URL: "http://" + ifaces[face_for_current_env][0]["address"] + ":8000/api/get_all_results"
+    API_URL: api_url
   },
   webpack: config => {
     config.plugins = config.plugins || [];
@@ -58,6 +58,7 @@ const nextConfig = {
 
 module.exports = phase => {
   console.log("PHASE", phase);
+  // Todo: @johann -> What is this phase gestion and why is it used? ENV file is not enough
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     Object.assign(nextConfig, {
       publicRuntimeConfig: {
