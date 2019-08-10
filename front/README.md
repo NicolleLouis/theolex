@@ -6,7 +6,7 @@ Use `theolex/front` as reference folder
 # Installation
 Create config file `.env` with following variables:
 
-- NODE_ENV=dev
+- ENV=dev
 - PORT=3000
 
 ## Build Image

@@ -5,14 +5,21 @@ const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 const withCss = require("@zeit/next-css");
 const withImages = require("next-images");
+const os = require("os");
+
 const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD
 } = require("next/constants");
 
+// Compute api host needed to call
+is_dev_environment = process.env.ENV == "dev"
+const ifaces = os.networkInterfaces();
+const face_for_current_env = is_dev_environment ? "lo" : "eth0";
+
 const nextConfig = {
   publicRuntimeConfig: {
-    API_URL: process.env.API_HOST +"/api/get_all_results"
+    API_URL: "http://" + ifaces[face_for_current_env][0]["address"] +"/api/get_all_results"
   },
   webpack: config => {
     config.plugins = config.plugins || [];
@@ -20,9 +27,10 @@ const nextConfig = {
     config.plugins = [
       ...config.plugins,
 
-      // Read the .env file
+      // Read the .env_dev file
+      // todo: @johann -> Why is it used here and not already done in docker-compose?
       new Dotenv({
-        path: path.join(__dirname, ".env"),
+        path: path.join(__dirname, ".env_dev"),
         systemvars: true
       }),
       new webpack.ProvidePlugin({
