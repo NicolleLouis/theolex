@@ -3,7 +3,7 @@ services:
   web:
     build: .
     restart: on-failure
-    env_file: .env_dev
+    env_file: .env
     command: npm start
     volumes:
       - .:/www
