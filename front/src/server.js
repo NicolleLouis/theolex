@@ -20,6 +20,7 @@ const handle = routes.getRequestHandler(app);
 app.prepare().then(() => {
   const server = express();
 
+  // todo: @johann -> Not useful anymore
   if (dev) {
     server.use(dpasAPI);
   }
