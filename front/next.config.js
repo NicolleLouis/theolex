@@ -27,10 +27,10 @@ const nextConfig = {
     config.plugins = [
       ...config.plugins,
 
-      // Read the .env_dev file
+      // Read the .env file
       // todo: @johann -> Why is it used here and not already done in docker-compose?
       new Dotenv({
-        path: path.join(__dirname, ".env_dev"),
+        path: path.join(__dirname, ".env"),
         systemvars: true
       }),
       new webpack.ProvidePlugin({
