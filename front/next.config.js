@@ -5,12 +5,12 @@ const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 const withCss = require("@zeit/next-css");
 const withImages = require("next-images");
-const os = require("os");
-
 const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD
 } = require("next/constants");
+const os = require("os");
+const hostname = os.hostname();
 
 // Compute api host needed to call
 is_dev_environment = process.env.ENV == "dev"
@@ -28,7 +28,6 @@ const nextConfig = {
       ...config.plugins,
 
       // Read the .env file
-      // todo: @johann -> Why is it used here and not already done in docker-compose?
       new Dotenv({
         path: path.join(__dirname, ".env"),
         systemvars: true
@@ -58,11 +57,10 @@ const nextConfig = {
 
 module.exports = phase => {
   console.log("PHASE", phase);
-  // Todo: @johann -> What is this phase gestion and why is it used? ENV file is not enough
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     Object.assign(nextConfig, {
       publicRuntimeConfig: {
-        API_URL: "http://localhost:3000/api/get_all_results"
+        API_URL: "http://" + hostname + ":3000/api/get_all_results"
       }
     });
     return withCss(withImages(nextConfig));

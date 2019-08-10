@@ -5,6 +5,8 @@ const next = require("next");
 const dpasAPI = require("./dpas-api");
 const routes = require("./routes");
 const config = require("dotenv").config();
+const os = require("os");
+const hostname = os.hostname();
 
 if (config.error) {
   throw config.error;
@@ -22,6 +24,12 @@ app.prepare().then(() => {
 
   // todo: @johann -> Not useful anymore
   if (dev) {
+    console.log("hostname: ", hostname)
+    server.use(function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", hostname); // update to match the domain you will make the request from
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
     server.use(dpasAPI);
   }
 
