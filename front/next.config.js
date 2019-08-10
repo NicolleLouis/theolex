@@ -19,7 +19,7 @@ const face_for_current_env = is_dev_environment ? "lo" : "eth0";
 
 const nextConfig = {
   publicRuntimeConfig: {
-    API_URL: "http://" + ifaces[face_for_current_env][0]["address"] +"/api/get_all_results"
+    API_URL: "http://" + ifaces[face_for_current_env][0]["address"] + ":8000/api/get_all_results"
   },
   webpack: config => {
     config.plugins = config.plugins || [];
