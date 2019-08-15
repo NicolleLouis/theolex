@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./search-bar";
 import SearchResults from "./search-results";
-import getConfig from 'next/config'
+import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -18,8 +18,15 @@ const Search = props => {
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
+
+      const config = {
+        params: {
+          input: query
+        }
+      };
+      console.log("Query", config);
       try {
-        const result = await axios(API_URL);
+        const result = await axios.get(API_URL, config);
         setData(result.data);
       } catch (error) {
         setIsError(true);

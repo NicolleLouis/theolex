@@ -17,3 +17,8 @@ Database credentials are the following:
 - Port: 5432
 - Database: theolex
 Ask Louis for user and password
+
+# Create Superuser
+`docker exec -it back_web_1 python manage.py createsuperuser`
+
+then connect to http://localhost:8000/admin/
