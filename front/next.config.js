@@ -9,8 +9,6 @@ const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD
 } = require("next/constants");
-const os = require("os");
-const hostname = os.hostname();
 
 // Compute api host needed to call
 is_dev_environment = process.env.ENV == "dev"
@@ -56,16 +54,7 @@ const nextConfig = {
 };
 
 module.exports = phase => {
-  console.log("PHASE", phase);
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
-    Object.assign(nextConfig, {
-      publicRuntimeConfig: {
-        API_URL: "http://" + hostname + ":3000/api/get_all_results"
-      }
-    });
-    return withCss(withImages(nextConfig));
-  }
-  if (phase === PHASE_PRODUCTION_BUILD) {
+  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
     return withCss(withImages(nextConfig));
   }
   return withImages(nextConfig);
