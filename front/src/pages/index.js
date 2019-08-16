@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Sidebar from "../components/sidebar";
 import Head from "../components/head";
@@ -17,6 +17,16 @@ const Index = () => {
       document.body.classList.remove("g-sidenav-hidden");
     }
     setIsSidenavOpen(!isSidenavOpen);
+  };
+
+  const getInitialProps = async ({ Component, ctx }) => {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    return { pageProps };
   };
 
   return (
