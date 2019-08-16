@@ -12,19 +12,19 @@ const Search = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [filters, setFilters] = useState(new Array());
 
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
       setIsSearching(true);
-
-      const config = {
-        params: {
-          input: searchTerm
-        }
+      const payload = {
+        input: searchTerm,
+        filters: filters
       };
       try {
-        const result = await axios.get(API_URL, config);
+        const result = await axios.get(API_URL, { params: payload });
         setResults(result.data);
       } catch (error) {
         setIsError(true);
@@ -33,6 +33,19 @@ const Search = () => {
     };
     fetchData();
   }, [triggerSearch]);
+
+  useEffect(() => {
+    setTypeFilter("");
+  }, []);
+
+  useEffect(() => {
+    let newFilters = filters.filter(
+      elt => elt.hasOwnProperty("type") && elt.type === typeFilter
+    );
+    newFilters.push({ type: typeFilter });
+    setFilters(newFilters);
+    setTriggerSearch(typeFilter);
+  }, [typeFilter]);
 
   const handleSubmit = event => {
     setTriggerSearch(searchTerm);
@@ -46,12 +59,16 @@ const Search = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form
               className="navbar-search form-inline mr-sm-3 navbar-search-light"
-              id="navbar-search-main" onSubmit={handleSubmit}
+              id="navbar-search-main"
+              onSubmit={handleSubmit}
             >
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <button type= "submit" className="input-group-text bg-gradient-blue">
+                    <button
+                      type="submit"
+                      className="input-group-text bg-gradient-blue"
+                    >
                       <i className="fas fa-search" />
                     </button>
                   </div>
@@ -67,7 +84,27 @@ const Search = () => {
           </div>
         </div>
       </nav>
-
+      <div className="card">
+        <div className="card-body">
+          <form>
+            <div className="form-group col-4 col-md-2">
+              <label className="form-control-label" htmlFor="typeFilter">
+                Type
+              </label>
+              <select
+                id="typeFilter"
+                className="form-control"
+                onChange={event => setTypeFilter(event.target.value)}
+                value={typeFilter}
+              >
+                <option value=""> --- </option>
+                <option value="dpa">DPA</option>
+                <option value="jurisprudence">Jurisprudence</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
       <div className="ml-4">
         {isError && <div>Something went wrong ...</div>}
         {isSearching ? (
