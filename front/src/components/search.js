@@ -13,20 +13,18 @@ const Search = () => {
   const [isError, setIsError] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [filters, setFilters] = useState(new Array());
 
   useEffect(() => {
-    console.log("HERE 3")
     const fetchData = async () => {
       setIsError(false);
       setIsSearching(true);
-
-      const config = {
-        params: {
-          input: searchTerm
-        }
+      const payload = {
+        input: searchTerm,
+        filters: filters
       };
       try {
-        const result = await axios.get(API_URL, config);
+        const result = await axios.get(API_URL, { params: payload });
         setResults(result.data);
       } catch (error) {
         setIsError(true);
@@ -41,7 +39,11 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
-    setSearchTerm(typeFilter);
+    let newFilters = filters.filter(
+      elt => elt.hasOwnProperty("type") && elt.type === typeFilter
+    );
+    newFilters.push({ type: typeFilter });
+    setFilters(newFilters);
     setTriggerSearch(typeFilter);
   }, [typeFilter]);
 
