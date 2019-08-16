@@ -1,40 +1,44 @@
 import React, { useState, useEffect } from "react";
-import useDebounce from "../hooks/use-debounce";
 import getConfig from "next/config";
-import classnames from "classnames";
+import axios from "axios";
 import ResultsList from "./results/results-list";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
 
-const Search = props => {
+const Search = () => {
   const [results, setResults] = useState({ hits: [] });
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [isError, setIsError] = useState(false);
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
-  function searchCharacters(search) {
-    return fetch(`${API_URL}?input=${search}`, {
-      method: "GET"
-    }).then(r => r.json());
-  }
+  const [triggerSearch, setTriggerSearch] = useState("");
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
+    const fetchData = async () => {
+      setIsError(false);
       setIsSearching(true);
-      searchCharacters(debouncedSearchTerm).then(results => {
-        setIsSearching(false);
-        if (results) {
-          setResults(results);
-        } else {
-          setIsError(true)
+
+      const config = {
+        params: {
+          input: searchTerm
         }
-      });
-    } else {
-      setResults([]);
-    }
-  }, [debouncedSearchTerm]);
+      };
+      try {
+        const result = await axios.get(API_URL, config);
+        setResults(result.data);
+      } catch (error) {
+        setIsError(true);
+      }
+      setIsSearching(false);
+    };
+    fetchData();
+  }, [triggerSearch]);
+
+  const handleSubmit = event => {
+    setTriggerSearch(searchTerm);
+    event.preventDefault();
+  };
+
   return (
     <>
       <nav className="navbar navbar-top navbar-expand-md border-bottom navbar-search-light bg-secondary">
@@ -42,12 +46,12 @@ const Search = props => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form
               className="navbar-search form-inline mr-sm-3 navbar-search-light"
-              id="navbar-search-main"
+              id="navbar-search-main" onSubmit={handleSubmit}
             >
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <button className="input-group-text bg-gradient-blue">
+                    <button type= "submit" className="input-group-text bg-gradient-blue">
                       <i className="fas fa-search" />
                     </button>
                   </div>
@@ -60,25 +64,6 @@ const Search = props => {
                 </div>
               </div>
             </form>
-
-            <ul className="navbar-nav align-items-center ml-md-auto">
-              <li className="nav-item d-xl-none">
-                <div
-                  className={classnames("pr-3 sidenav-toggler", {
-                    active: props.isSidenavOpen
-                  })}
-                  data-action="sidenav-pin"
-                  data-target="#sidenav-main"
-                  onClick={props.toggleSidenav}
-                >
-                  <div className="sidenav-toggler-inner">
-                    <i className="sidenav-toggler-line" />
-                    <i className="sidenav-toggler-line" />
-                    <i className="sidenav-toggler-line" />
-                  </div>
-                </div>
-              </li>
-            </ul>
           </div>
         </div>
       </nav>
