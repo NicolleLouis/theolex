@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useDebounce from "../hooks/use-debounce";
 import getConfig from "next/config";
 import classnames from "classnames";
-import ResultsList from "results/results-list";
+import ResultsList from "./results/results-list";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
