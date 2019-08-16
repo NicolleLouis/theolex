@@ -12,8 +12,10 @@ const Search = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
 
   useEffect(() => {
+    console.log("HERE 3")
     const fetchData = async () => {
       setIsError(false);
       setIsSearching(true);
@@ -34,6 +36,15 @@ const Search = () => {
     fetchData();
   }, [triggerSearch]);
 
+  useEffect(() => {
+    setTypeFilter("");
+  }, []);
+
+  useEffect(() => {
+    setSearchTerm(typeFilter);
+    setTriggerSearch(typeFilter);
+  }, [typeFilter]);
+
   const handleSubmit = event => {
     setTriggerSearch(searchTerm);
     event.preventDefault();
@@ -46,12 +57,16 @@ const Search = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form
               className="navbar-search form-inline mr-sm-3 navbar-search-light"
-              id="navbar-search-main" onSubmit={handleSubmit}
+              id="navbar-search-main"
+              onSubmit={handleSubmit}
             >
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <button type= "submit" className="input-group-text bg-gradient-blue">
+                    <button
+                      type="submit"
+                      className="input-group-text bg-gradient-blue"
+                    >
                       <i className="fas fa-search" />
                     </button>
                   </div>
@@ -67,7 +82,27 @@ const Search = () => {
           </div>
         </div>
       </nav>
-
+      <div className="card">
+        <div className="card-body">
+          <form>
+            <div className="form-group col-4 col-md-2">
+              <label className="form-control-label" htmlFor="typeFilter">
+                Type
+              </label>
+              <select
+                id="typeFilter"
+                className="form-control"
+                onChange={event => setTypeFilter(event.target.value)}
+                value={typeFilter}
+              >
+                <option value=""> --- </option>
+                <option value="dpa">DPA</option>
+                <option value="jurisprudence">Jurisprudence</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
       <div className="ml-4">
         {isError && <div>Something went wrong ...</div>}
         {isSearching ? (
