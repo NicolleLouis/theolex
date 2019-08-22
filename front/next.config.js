@@ -54,8 +54,10 @@ const nextConfig = {
 };
 
 module.exports = phase => {
+  // used in dev mode (hot reloading enabled) and during build because css isn't minified: npm run dev
   if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
     return withCss(withImages(nextConfig));
   }
+  // used in production (no hot reloading) mode AFTER build: npm start
   return withImages(nextConfig);
 };

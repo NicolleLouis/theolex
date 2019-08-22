@@ -15,16 +15,30 @@ const Search = () => {
   const [typeFilter, setTypeFilter] = useState("");
   const [filters, setFilters] = useState(new Array());
 
+  const getQueryParams = () => {
+    let params = {};
+    if (searchTerm === "" && filters.length > 0) {
+      params = {
+        filters: filters
+      };
+    } else if (searchTerm !== "" && filters.length === 0) {
+      params = {
+        input: searchTerm
+      };
+    } else {
+      params = { input: searchTerm, filters: filters };
+    }
+    return { params: params };
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
       setIsSearching(true);
-      const payload = {
-        input: searchTerm,
-        filters: filters
-      };
+      const queryParams = getQueryParams();
+
       try {
-        const result = await axios.get(API_URL, { params: payload });
+        const result = await axios.get(API_URL, queryParams);
         setResults(result.data);
       } catch (error) {
         setIsError(true);
@@ -39,10 +53,15 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
+    // get filters array without type filter
     let newFilters = filters.filter(
-      elt => elt.hasOwnProperty("type") && elt.type === typeFilter
+      filterElt => !filterElt.hasOwnProperty("type")
     );
-    newFilters.push({ type: typeFilter });
+    // set type filter only if a value has been set
+    if (typeFilter !== "") {
+      newFilters.push({ type: typeFilter });
+    }
+    // otherwise filters array won't contain any type filter
     setFilters(newFilters);
     setTriggerSearch(typeFilter);
   }, [typeFilter]);
