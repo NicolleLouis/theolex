@@ -1,11 +1,11 @@
 from django.db import models
-from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 
 class Decision(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField(null=True)
-    # A remplacer par l'URL?
     text = models.TextField(null=True)
     monetary_sanction = models.FloatField(null=True)
     # A supprimer quand on aura les modèles sous jacents? Ou au moins Enum et pas texte
@@ -25,7 +25,17 @@ class Decision(models.Model):
         }
 
 
-class DecisionAdmin(admin.ModelAdmin):
+class DecisionResource(resources.ModelResource):
+    class Meta:
+        model = Decision
+
+    # Modify instance to customize
+    def before_save_instance(self, instance, using_transactions, dry_run):
+        pass
+
+
+class DecisionAdmin(ImportExportModelAdmin):
+    resource_class = DecisionResource
     list_display = (
         'name',
         'text',
