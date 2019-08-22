@@ -24,3 +24,4 @@ COPY . /www/
 
 RUN python3 /www/manage.py makemigrations
 RUN python3 /www/manage.py migrate
+RUN python3 /www/manage.py collectstatic
