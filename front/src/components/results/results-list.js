@@ -17,7 +17,7 @@ const ResultsList = props => {
             return (
               <div
                 key={index}
-                className="row mb-3 media text-muted pt-3 border-bottom border-darker"
+                className="row mb-3 media text-muted pt-3 border-bottom border-primary"
                 onClick={() => {
                   setDetailedContent(elt);
                   setIsModalOpen(true);
@@ -32,7 +32,7 @@ const ResultsList = props => {
                 <div className="col-md-4 themed-grid-col">
                   <svg
                     className="bd-placeholder-img mr-2 rounded"
-                    width="70"
+                    width={elt.monetary_sanction > 900000 ? "100" : "70"}
                     height="32"
                     xmlns="http://www.w3.org/2000/svg"
                     preserveAspectRatio="xMidYMid slice"

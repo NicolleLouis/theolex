@@ -3,9 +3,9 @@ import { Modal } from "reactstrap";
 
 const ModalWrapper = props => {
   return (
-    <Modal className="modal-dialog-centered" isOpen={props.isModalOpen}>
+    <Modal className="modal-dialog-centered modal-xl" isOpen={props.isModalOpen}>
       <div className="modal-content">
-        <div className="modal-header bg-gradient-danger">
+        <div className="modal-header bg-translucent-light">
           <h5 className="modal-title" id="exampleModalLabel">
             {props.title}
           </h5>
