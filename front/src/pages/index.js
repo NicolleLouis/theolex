@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/sidebar";
 import Head from "../components/head";
 import { Helmet } from "react-helmet-async";
-import Main from "../components/main";
+import Search from "../components/search";
 
 const Index = () => {
   const [isSidenavOpen, setIsSidenavOpen] = useState(true);
@@ -38,7 +38,9 @@ const Index = () => {
       )}
       <Head title="Home" />
       <Sidebar isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
-      <Main isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
+      <div className="main-content" id="panel">
+        <Search isSidenavOpen={isSidenavOpen} />
+      </div>
       {isSidenavOpen ? (
         <div className="backdrop d-xl-none" onClick={toggleSidenav} />
       ) : null}
