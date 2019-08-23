@@ -132,7 +132,7 @@ const Search = () => {
           results &&
           results.hits && (
             <>
-              <div>{results.hits.length} résultats</div>
+              <div>{results.hits.length} result(s)</div>
               <br />
               <ResultsList data={results} />
             </>
