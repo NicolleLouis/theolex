@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Sidebar from "../components/sidebar";
 import Head from "../components/head";
@@ -6,8 +6,8 @@ import { Helmet } from "react-helmet-async";
 import Search from "../components/search";
 
 const Index = () => {
+  /* Sidebar Management */
   const [isSidenavOpen, setIsSidenavOpen] = useState(true);
-
   const toggleSidenav = () => {
     if (document.body.classList.contains("g-sidenav-pinned")) {
       document.body.classList.remove("g-sidenav-pinned");
@@ -19,6 +19,7 @@ const Index = () => {
     setIsSidenavOpen(!isSidenavOpen);
   };
 
+  /* Required to force server rendering */
   const getInitialProps = async ({ Component, ctx }) => {
     let pageProps = {};
 
@@ -39,7 +40,7 @@ const Index = () => {
       <Head title="Home" />
       <Sidebar isSidenavOpen={isSidenavOpen} toggleSidenav={toggleSidenav} />
       <div className="main-content" id="panel">
-        <Search isSidenavOpen={isSidenavOpen} />
+        <Search />
       </div>
       {isSidenavOpen ? (
         <div className="backdrop d-xl-none" onClick={toggleSidenav} />
