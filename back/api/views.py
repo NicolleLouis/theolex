@@ -2,7 +2,7 @@ import ast
 
 from django.http import JsonResponse
 
-from api.repository.decision_repository import fetch_all_decisions, filter_decisions
+from api.repository.decision_repository import fetch_all_decisions, filter_decisions, get_distinct_values_of_field
 from api.services.utils import transform_decision_list_to_json
 
 
@@ -25,13 +25,10 @@ def get_decisions(request):
 
 
 def get_filter_values(request):
-    return JsonResponse(
-        {
-            "filter_label": "type",
-            "values": [
-                "DPA",
-                "OFAC",
-                "Jurisprudence"
-            ]
-        }
-    )
+    filter_label = request.GET.get('filter_label')
+    distinct_values_of_field = get_distinct_values_of_field(filter_label)
+
+    return JsonResponse({
+            "filter_label": filter_label,
+            "values": distinct_values_of_field
+        })
