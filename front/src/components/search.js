@@ -13,20 +13,13 @@ const Search = () => {
   const [isError, setIsError] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
-  const [filters, setFilters] = useState(new Array());
+  const [filters, setFilters] = useState(new Object());
 
   const getQueryParams = () => {
     let params = {};
-    if (searchTerm === "" && filters.length > 0) {
-      params = {
-        filters: filters
-      };
-    } else if (searchTerm !== "" && filters.length === 0) {
-      params = {
-        input: searchTerm
-      };
-    } else {
-      params = { input: searchTerm, filters: filters };
+    params["filters"] = filters;
+    if (searchTerm !== "") {
+      params["input_search_bar"] = searchTerm;
     }
     return { params: params };
   };
@@ -53,15 +46,17 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
-    // get filters array without type filter
-    let newFilters = filters.filter(
-      filterElt => !filterElt.hasOwnProperty("type")
-    );
+    // Il y a un problème ici: tu as hard code le filter name alors qu'il devrait être dépendant du label du filtre
+    // Il ne faut pas utiliser un array de dict mais un dict tout court, on avait du mal se comprendre au téléphone
+
+    // get filters object without type label of the filter
+    let newFilters = {};
+
     // set type filter only if a value has been set
     if (typeFilter !== "") {
-      newFilters.push({ type: typeFilter });
+      newFilters["type"] = typeFilter;
     }
-    // otherwise filters array won't contain any type filter
+
     setFilters(newFilters);
     setTriggerSearch(typeFilter);
   }, [typeFilter]);
