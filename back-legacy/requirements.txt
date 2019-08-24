@@ -1,6 +1,6 @@
 ansible==2.5.4
 chardet==2.3.0
-Django==2.0.5
+Django==2.0.12
 django-webpack-loader==0.6.0
 docker==3.3.0
 docker-compose==1.21.2
