@@ -13,3 +13,9 @@ def filter_decisions(filters, decisions):
         # Filter the querySet
         decisions = decisions.filter(**{filter_key: filter_value})
     return decisions
+
+
+def get_distinct_values_of_field(field_name):
+    raw_values = list(Decision.objects.values(field_name).distinct())
+    values = list(map(lambda raw_value: raw_value[field_name], raw_values))
+    return values
