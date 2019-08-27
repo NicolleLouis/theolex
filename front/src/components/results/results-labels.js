@@ -8,6 +8,7 @@ const ResultsLabels = props => {
 
           return (
             <span key={index}>
+              /* Qu'est ce que c'est que cela: Endettement Excessif */
               {elt === "Endettement Excessif" && (
                 <svg
                   className="bd-placeholder-img mr-2 rounded"
