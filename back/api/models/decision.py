@@ -1,5 +1,7 @@
 from django.db import models
+from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin
+from import_export.widgets import ManyToManyWidget
 
 
 class Decision(models.Model):
@@ -31,6 +33,7 @@ class Decision(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
+    violations = models.ManyToManyField('Violation')
 
     def __str__(self):
         return str(self.name)
@@ -43,10 +46,26 @@ class Decision(models.Model):
             'type': self.type,
             'decision_date': self.decision_date,
             'authority_name': self.authority.name if self.authority else None,
+            # ToDo: unmock me
+            'violations': ["mock", "todo"]
         }
 
 
+class DecisionResource(resources.ModelResource):
+    class Meta:
+        model = Decision
+        fields = [
+            'id',
+            'name',
+            'text',
+            'monetary_sanction',
+            'type',
+            'decision_date',
+        ]
+
+
 class DecisionAdmin(ImportExportModelAdmin):
+    resource_class = DecisionResource
     list_display = (
         'name',
         'get_authority_name',
