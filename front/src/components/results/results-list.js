@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ResultsLabels from "./results-labels";
-import Moment from "react-moment";
-import ModalWrapper from "../modals/modal-wrapper";
+import ModalWrapper from "../molecules/modal-wrapper";
 import ResultsDetail from "./results-detail";
 import TagAmount from "../atoms/tag-amount";
+import Date from "../atoms/date";
 
 const ResultsList = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +28,7 @@ const ResultsList = props => {
                   <strong className="d-block text-gray-dark">{elt.name}</strong>
                 </div>
                 <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125">
-                  <Moment format="YYYY/MM/DD">{elt.decision_date}</Moment>
+                  <Date value={elt.decision_date}/>
                 </div>
                 <div className="col-md-4 themed-grid-col">
                   <TagAmount value={elt.monetary_sanction} unit="€" />
