@@ -4,6 +4,7 @@ import axios from "axios";
 import ResultsList from "./results/results-list";
 import Label from "./atoms/label";
 import SearchButton from "./molecules/SearchButton";
+import Filter from "./organisms/Filter";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -98,22 +99,36 @@ const Search = () => {
       <div className="card">
         <div className="card-body">
           <form>
-            <div className="form-group col-4 col-md-2">
-              <Label htmlFor="typeFilter">Type</Label>
-              <select
-                id="typeFilter"
-                className="form-control"
-                onChange={event => setTypeFilter(event.target.value)}
-                value={typeFilter}
-              >
-                <option value=""> --- </option>
-                <option value="dpa">DPA</option>
-                <option value="jurisprudence">Jurisprudence</option>
-              </select>
+            <div className="row">
+              <Filter
+                id="filter-type"
+                label="Type"
+                className="col-4 col-md-2"
+                options={
+                  new Array(
+                    { label: "DPA", value: "dpa" },
+                    { label: "OFAC", value: "OFAC" },
+                    { label: "Jurisprudence", value: "Jurisprudence" }
+                  )
+                }
+              />
+              <Filter
+                id="filter-type2"
+                label="Type"
+                className="col-4 col-md-2"
+                options={
+                  new Array(
+                    { label: "DPA", value: "dpa" },
+                    { label: "OFAC", value: "OFAC" },
+                    { label: "Jurisprudence", value: "Jurisprudence" }
+                  )
+                }
+              />
             </div>
           </form>
         </div>
       </div>
+
       <div className="ml-4">
         {isError && <div>Something went wrong ...</div>}
         {isSearching ? (
