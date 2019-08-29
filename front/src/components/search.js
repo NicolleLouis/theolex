@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import ResultsList from "./results/results-list";
-import Label from "./atoms/label";
 import SearchButton from "./molecules/SearchButton";
-import Filter from "./organisms/Filter";
+import Filter from "./molecules/Filter";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
