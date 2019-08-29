@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import Label from "../atoms/label";
 
 const Filter = ({ id, label, options, className, onChange, value }) => {
+  const handleChange = e => {
+    onChange(e.target.value);
+    e.preventDefault();
+  };
+
   return (
     <div className={className}>
       <div className="form-group">
@@ -10,7 +15,7 @@ const Filter = ({ id, label, options, className, onChange, value }) => {
         <select
           id={id}
           className="form-control"
-          onChange={onChange}
+          onChange={handleChange}
           value={value}
         >
           {options.length > 0 &&

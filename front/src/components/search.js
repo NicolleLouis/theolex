@@ -57,17 +57,10 @@ const Search = () => {
     fetchData();
   }, [triggerSearch]);
 
-  useEffect(() => {
-    setTypeFilter("");
-  }, []);
 
   useEffect(() => {
-    // Il y a un problème ici: tu as hard code le filter name alors qu'il devrait être dépendant du label du filtre
-    // Il ne faut pas utiliser un array de dict mais un dict tout court, on avait du mal se comprendre au téléphone
-
     // get filters object without type label of the filter
     let newFilters = {};
-
     // set type filter only if a value has been set
     if (typeFilter !== "") {
       newFilters["type"] = typeFilter;
@@ -118,6 +111,8 @@ const Search = () => {
                 label="Type"
                 className="col-4 col-md-2"
                 options={typeFilters}
+                value={typeFilter}
+                onChange={setTypeFilter}
               />
               <Filter
                 id="filter-generic"
