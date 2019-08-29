@@ -9,6 +9,19 @@ import Filter from "./organisms/Filter";
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
 
+/* Temporary option fillers */
+const typeFilters = [
+  { label: "DPA", value: "dpa" },
+  { label: "OFAC", value: "OFAC" },
+  { label: "Jurisprudence", value: "Jurisprudence" }
+];
+
+const genericFilters = [
+  { label: "label1", value: "1" },
+  { label: "label2", value: "2" },
+  { label: "label3", value: "3" }
+];
+
 const Search = () => {
   const [results, setResults] = useState({ hits: [] });
   const [searchTerm, setSearchTerm] = useState("");
@@ -104,25 +117,13 @@ const Search = () => {
                 id="filter-type"
                 label="Type"
                 className="col-4 col-md-2"
-                options={
-                  new Array(
-                    { label: "DPA", value: "dpa" },
-                    { label: "OFAC", value: "OFAC" },
-                    { label: "Jurisprudence", value: "Jurisprudence" }
-                  )
-                }
+                options={typeFilters}
               />
               <Filter
-                id="filter-type2"
-                label="Type"
+                id="filter-generic"
+                label="Generic"
                 className="col-4 col-md-2"
-                options={
-                  new Array(
-                    { label: "DPA", value: "dpa" },
-                    { label: "OFAC", value: "OFAC" },
-                    { label: "Jurisprudence", value: "Jurisprudence" }
-                  )
-                }
+                options={genericFilters}
               />
             </div>
           </form>
