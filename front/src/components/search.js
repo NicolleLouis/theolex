@@ -2,9 +2,24 @@ import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import ResultsList from "./results/results-list";
+import SearchButton from "./molecules/SearchButton";
+import Filter from "./molecules/Filter";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
+
+/* Temporary option fillers */
+const typeFilters = [
+  { label: "DPA", value: "dpa" },
+  { label: "OFAC", value: "OFAC" },
+  { label: "Jurisprudence", value: "Jurisprudence" }
+];
+
+const genericFilters = [
+  { label: "label1", value: "1" },
+  { label: "label2", value: "2" },
+  { label: "label3", value: "3" }
+];
 
 const Search = () => {
   const [results, setResults] = useState({ hits: [] });
@@ -41,17 +56,10 @@ const Search = () => {
     fetchData();
   }, [triggerSearch]);
 
-  useEffect(() => {
-    setTypeFilter("");
-  }, []);
 
   useEffect(() => {
-    // Il y a un problème ici: tu as hard code le filter name alors qu'il devrait être dépendant du label du filtre
-    // Il ne faut pas utiliser un array de dict mais un dict tout court, on avait du mal se comprendre au téléphone
-
     // get filters object without type label of the filter
     let newFilters = {};
-
     // set type filter only if a value has been set
     if (typeFilter !== "") {
       newFilters["type"] = typeFilter;
@@ -79,12 +87,7 @@ const Search = () => {
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <button
-                      type="submit"
-                      className="input-group-text bg-gradient-blue"
-                    >
-                      <i className="fas fa-search" />
-                    </button>
+                    <SearchButton />
                   </div>
                   <input
                     className="form-control"
@@ -101,24 +104,26 @@ const Search = () => {
       <div className="card">
         <div className="card-body">
           <form>
-            <div className="form-group col-4 col-md-2">
-              <label className="form-control-label" htmlFor="typeFilter">
-                Type
-              </label>
-              <select
-                id="typeFilter"
-                className="form-control"
-                onChange={event => setTypeFilter(event.target.value)}
+            <div className="row">
+              <Filter
+                id="filter-type"
+                label="Type"
+                className="col-4 col-md-2"
+                options={typeFilters}
                 value={typeFilter}
-              >
-                <option value=""> --- </option>
-                <option value="dpa">DPA</option>
-                <option value="jurisprudence">Jurisprudence</option>
-              </select>
+                onChange={setTypeFilter}
+              />
+              <Filter
+                id="filter-generic"
+                label="Generic"
+                className="col-4 col-md-2"
+                options={genericFilters}
+              />
             </div>
           </form>
         </div>
       </div>
+
       <div className="ml-4">
         {isError && <div>Something went wrong ...</div>}
         {isSearching ? (
