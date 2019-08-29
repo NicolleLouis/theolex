@@ -1,14 +1,13 @@
 import React from "react";
 import { Modal } from "reactstrap";
+import Title from "../atoms/title";
 
 const ModalWrapper = props => {
   return (
     <Modal className="modal-dialog-centered modal-xl" isOpen={props.isModalOpen}>
       <div className="modal-content">
         <div className="modal-header bg-translucent-light">
-          <h5 className="modal-title" id="exampleModalLabel">
-            {props.title}
-          </h5>
+          <Title className="modal-title">{props.title}</Title>
           <button
             aria-label="Close"
             className="close"
