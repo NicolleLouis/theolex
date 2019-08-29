@@ -3,6 +3,7 @@ import ResultsLabels from "./results-labels";
 import Moment from "react-moment";
 import ModalWrapper from "../modals/modal-wrapper";
 import ResultsDetail from "./results-detail";
+import TagAmount from "../atoms/tag-amount";
 
 const ResultsList = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,27 +31,7 @@ const ResultsList = props => {
                   <Moment format="YYYY/MM/DD">{elt.decision_date}</Moment>
                 </div>
                 <div className="col-md-4 themed-grid-col">
-                  <svg
-                    className="bd-placeholder-img mr-2 rounded"
-                    width={elt.monetary_sanction > 900000 ? "100" : "70"}
-                    height="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                    preserveAspectRatio="xMidYMid slice"
-                    focusable="false"
-                    role="img"
-                    aria-label="monetary_sanction"
-                  >
-                    <rect width="100%" height="100%" fill="#ed1250" />
-                    <text
-                      x="20%"
-                      y="70%"
-                      fontFamily="sans-serif"
-                      fontSize="14px"
-                      fill="white"
-                    >
-                      {elt.monetary_sanction} €
-                    </text>
-                  </svg>
+                  <TagAmount value={elt.monetary_sanction} unit="€" />
                   <ResultsLabels value={elt} />
                 </div>
               </div>
@@ -64,7 +45,7 @@ const ResultsList = props => {
           setIsModalOpen(false);
         }}
       >
-        <ResultsDetail content={detailedContent}/>
+        <ResultsDetail content={detailedContent} />
       </ModalWrapper>
     </>
   );
