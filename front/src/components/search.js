@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import ResultsList from "./results/results-list";
-import SearchButton from "./molecules/search-button";
+import SearchButton from "./atoms/search-button";
 import Filter from "./molecules/filter";
 
 const { publicRuntimeConfig } = getConfig();
