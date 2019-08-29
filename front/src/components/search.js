@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import ResultsList from "./results/results-list";
+import Label from "./atoms/label";
+import SearchButton from "./molecules/SearchButton";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -79,12 +81,7 @@ const Search = () => {
               <div className="form-group mb-0">
                 <div className="input-group input-group-alternative">
                   <div className="input-group-prepend">
-                    <button
-                      type="submit"
-                      className="input-group-text bg-gradient-blue"
-                    >
-                      <i className="fas fa-search" />
-                    </button>
+                    <SearchButton />
                   </div>
                   <input
                     className="form-control"
@@ -102,9 +99,7 @@ const Search = () => {
         <div className="card-body">
           <form>
             <div className="form-group col-4 col-md-2">
-              <label className="form-control-label" htmlFor="typeFilter">
-                Type
-              </label>
+              <Label htmlFor="typeFilter">Type</Label>
               <select
                 id="typeFilter"
                 className="form-control"
