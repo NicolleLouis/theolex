@@ -9,7 +9,17 @@ const ResultsDetail = ({ content, ...props }) => {
           <div className="card-body">
             <div className="row">
               <div className="col">
-                <span className="h4 font-weight-bold mb-0"><Moment format="YYYY/MM/DD">{content.decision_date}</Moment></span>
+                <span className="h4 font-weight-bold mb-0">
+                  <Moment format="YYYY/MM/DD">{content.decision_date}</Moment>
+                </span>
+              </div>
+              <div className="col">
+                <span className="h4 font-weight-bold mb-0">
+                  {content.authority_name}
+                </span>
+              </div>
+              <div className="col">
+                <span className="h8 font-weight-bold mb-0">{content.type}</span>
               </div>
               <div className="col-auto">
                 <svg
@@ -40,7 +50,7 @@ const ResultsDetail = ({ content, ...props }) => {
         <div className="card card-stats">
           <div className="card-body">
             <div className="row">
-                <span className="h4 font-weight-bold mb-0">{content.text}</span>
+              <span className="h4 font-weight-bold mb-0">{content.text}</span>
             </div>
           </div>
         </div>
