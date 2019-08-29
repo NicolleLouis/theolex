@@ -16,5 +16,8 @@ create-user:
 front-up:
 	docker-compose -f front/docker-compose.yml up --build -d
 
+front-install:
+	npm run build
+
 front-dev:
 	npm run postinstall
