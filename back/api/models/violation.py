@@ -14,7 +14,7 @@ class Violation(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.long_name if self.long_name else self.name
 
     def to_json(self):
         return {
