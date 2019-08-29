@@ -10,5 +10,11 @@ python-up:
 migrations:
 	docker exec -it back_web_1 python manage.py migrate
 
+create-user:
+	docker exec -it back_web_1 python manage.py createsuperuser
+
 front-up:
 	docker-compose -f front/docker-compose.yml up --build -d
+
+front-dev:
+	npm run postinstall
