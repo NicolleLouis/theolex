@@ -35,7 +35,6 @@ const ResultsList = props => {
                 <div className="col-md-4 themed-grid-col">
                   <TagAmount value={content.monetary_sanction} unit="€" />
                   <Tag value={content.type} />
-                  <Tag value={content.authority_name} />
                 </div>
               </div>
             );
