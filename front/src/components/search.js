@@ -7,19 +7,7 @@ import Filter from "./molecules/filter";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
-
-/* Temporary option fillers */
-const typeFilters = [
-  { value: "dpa" },
-  { value: "OFAC" },
-  { value: "Jurisprudence" }
-];
-
-const violationFilters = [
-  { value: "1" },
-  { value: "2" },
-  { value: "3" }
-];
+const GET_DECISIONS = API_URL + "/get_decisions";
 
 const Search = () => {
   const [results, setResults] = useState({ hits: [] });
@@ -40,24 +28,25 @@ const Search = () => {
     return { params: params };
   };
 
+  /* Call search request*/
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDecisions = async () => {
       setIsError(false);
       setIsSearching(true);
       const queryParams = getQueryParams();
 
       try {
-        const result = await axios.get(API_URL, queryParams);
-        setResults(result.data);
+        const response = await axios.get(GET_DECISIONS, queryParams);
+        setResults(response.data);
       } catch (error) {
         setIsError(true);
       }
       setIsSearching(false);
     };
-    fetchData();
+    fetchDecisions();
   }, [triggerSearch]);
 
-
+  /* Update filters */
   useEffect(() => {
     // get filters object without type label of the filter
     let newFilters = {};
@@ -110,17 +99,15 @@ const Search = () => {
             <div className="row">
               <Filter
                 id="filter-type"
-                label="Type"
+                label="type"
                 className="col-4 col-md-2"
-                options={typeFilters}
                 value={typeFilter}
                 onChange={setTypeFilter}
               />
               <Filter
                 id="filter-violation"
-                label="Violation"
+                label="violation"
                 className="col-4 col-md-2"
-                options={violationFilters}
                 value={violationFilter}
                 onChange={setViolationFilter}
               />
