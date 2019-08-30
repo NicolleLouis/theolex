@@ -26,6 +26,7 @@ def get_decisions(request):
 
 def get_filter_values(request):
     filter_label = request.GET.get('filter_label')
+
     distinct_values_of_field = DecisionRepository.get_distinct_values_of_field(filter_label)
 
     return JsonResponse({
