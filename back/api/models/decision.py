@@ -1,7 +1,6 @@
 from django.db import models
-from import_export import resources, fields
+from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from import_export.widgets import ManyToManyWidget
 
 from api.constant import string_separator
 
@@ -31,6 +30,11 @@ class Decision(models.Model):
     )
     violations = models.ManyToManyField(
         'Violation',
+        null=True,
+        blank=True
+    )
+    authorities = models.ManyToManyField(
+        'Authority',
         null=True,
         blank=True
     )
