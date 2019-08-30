@@ -9,7 +9,7 @@ const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
 const GET_FILTERS_VALUE = API_URL + "/get_filter_values";
 
-const Filter = ({ id, label, className, onChange, value }) => {
+const Filter = ({ id, label, className, filters, setFilters, value }) => {
   const [fetchError, setFetchError] = useState(false);
   const [filterValues, setFilterValues] = useState([]);
 
@@ -39,9 +39,17 @@ const Filter = ({ id, label, className, onChange, value }) => {
     fetchFilterValues();
   }, [label]);
 
-  const handleChange = e => {
-    onChange(e.target.value);
-    e.preventDefault();
+  const handleChange = event => {
+    event.persist();
+    if (event.target.value !== "") {
+      setFilters(filters => ({
+        ...filters,
+        [event.target.name]: event.target.value
+      }));
+    } else {
+      delete filters[event.target.name];
+      setFilters(Object.assign({}, filters));
+    }
   };
 
   return (
@@ -53,6 +61,7 @@ const Filter = ({ id, label, className, onChange, value }) => {
           className={classnames("form-control", {
             "is-invalid": fetchError
           })}
+          name={label}
           onChange={handleChange}
           value={value}
         >
@@ -69,7 +78,9 @@ const Filter = ({ id, label, className, onChange, value }) => {
               );
             })}
         </select>
-        {fetchError && <div className="invalid-feedback">Can't get {label} values</div>}
+        {fetchError && (
+          <div className="invalid-feedback">Can't get {label} values</div>
+        )}
       </div>
     </div>
   );

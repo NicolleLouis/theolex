@@ -3,7 +3,7 @@ import getConfig from "next/config";
 import axios from "axios";
 import ResultsList from "./results/results-list";
 import SearchButton from "./atoms/search-button";
-import Filter from "./molecules/filter";
+import FiltersSection from "./organisms/filters-section";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -15,9 +15,7 @@ const Search = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [violationFilter, setViolationFilter] = useState("");
-  const [filters, setFilters] = useState(new Object());
+  const [filters, setFilters] = useState({});
 
   const getQueryParams = () => {
     let params = {};
@@ -28,7 +26,7 @@ const Search = () => {
     return { params: params };
   };
 
-  /* Call search request*/
+  /* Call API when search is triggered */
   useEffect(() => {
     const fetchDecisions = async () => {
       setIsError(false);
@@ -46,20 +44,10 @@ const Search = () => {
     fetchDecisions();
   }, [triggerSearch]);
 
-  /* Update filters */
+  /* Trigger search with filters */
   useEffect(() => {
-    // get filters object without type label of the filter
-    let newFilters = {};
-    // set type filter only if a value has been set
-    if (typeFilter !== "") {
-      newFilters["type"] = typeFilter;
-    }
-    if (violationFilter !== "") {
-      newFilters["violation"] = violationFilter;
-    }
-    setFilters(newFilters);
-    setTriggerSearch(newFilters);
-  }, [typeFilter, violationFilter]);
+    setTriggerSearch(filters);
+  }, [filters]);
 
   const handleSubmit = event => {
     setTriggerSearch(searchTerm);
@@ -93,28 +81,8 @@ const Search = () => {
           </div>
         </div>
       </nav>
-      <div className="card">
-        <div className="card-body">
-          <form>
-            <div className="row">
-              <Filter
-                id="filter-type"
-                label="type"
-                className="col-4 col-md-2"
-                value={typeFilter}
-                onChange={setTypeFilter}
-              />
-              <Filter
-                id="filter-violation"
-                label="violation"
-                className="col-4 col-md-2"
-                value={violationFilter}
-                onChange={setViolationFilter}
-              />
-            </div>
-          </form>
-        </div>
-      </div>
+
+      <FiltersSection filters={filters} setFilters={setFilters} />
 
       <div className="ml-4">
         {isError && <div>Something went wrong ...</div>}
