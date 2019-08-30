@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import ResultsList from "./results/results-list";
-import SearchButton from "./molecules/search-button";
+import SearchButton from "./atoms/search-button";
 import Filter from "./molecules/filter";
 
 const { publicRuntimeConfig } = getConfig();
@@ -10,15 +10,15 @@ const { API_URL } = publicRuntimeConfig;
 
 /* Temporary option fillers */
 const typeFilters = [
-  { label: "DPA", value: "dpa" },
-  { label: "OFAC", value: "OFAC" },
-  { label: "Jurisprudence", value: "Jurisprudence" }
+  { value: "dpa" },
+  { value: "OFAC" },
+  { value: "Jurisprudence" }
 ];
 
-const genericFilters = [
-  { label: "label1", value: "1" },
-  { label: "label2", value: "2" },
-  { label: "label3", value: "3" }
+const violationFilters = [
+  { value: "1" },
+  { value: "2" },
+  { value: "3" }
 ];
 
 const Search = () => {
@@ -28,6 +28,7 @@ const Search = () => {
   const [isError, setIsError] = useState(false);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [violationFilter, setViolationFilter] = useState("");
   const [filters, setFilters] = useState(new Object());
 
   const getQueryParams = () => {
@@ -64,10 +65,12 @@ const Search = () => {
     if (typeFilter !== "") {
       newFilters["type"] = typeFilter;
     }
-
+    if (violationFilter !== "") {
+      newFilters["violation"] = violationFilter;
+    }
     setFilters(newFilters);
-    setTriggerSearch(typeFilter);
-  }, [typeFilter]);
+    setTriggerSearch(newFilters);
+  }, [typeFilter, violationFilter]);
 
   const handleSubmit = event => {
     setTriggerSearch(searchTerm);
@@ -78,7 +81,7 @@ const Search = () => {
     <>
       <nav className="navbar navbar-top navbar-expand-md border-bottom navbar-search-light bg-secondary">
         <div className="container-fluid">
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse">
             <form
               className="navbar-search form-inline mr-sm-3 navbar-search-light"
               id="navbar-search-main"
@@ -114,10 +117,12 @@ const Search = () => {
                 onChange={setTypeFilter}
               />
               <Filter
-                id="filter-generic"
-                label="Generic"
+                id="filter-violation"
+                label="Violation"
                 className="col-4 col-md-2"
-                options={genericFilters}
+                options={violationFilters}
+                value={violationFilter}
+                onChange={setViolationFilter}
               />
             </div>
           </form>

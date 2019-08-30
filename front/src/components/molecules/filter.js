@@ -18,11 +18,12 @@ const Filter = ({ id, label, options, className, onChange, value }) => {
           onChange={handleChange}
           value={value}
         >
+          <option key="-1" value="">---</option>
           {options.length > 0 &&
-            options.map((optVal, index) => {
+            options.map((filter, index) => {
               return (
-                <option key={index} value={optVal.value}>
-                  {optVal.label}
+                <option key={index} value={filter.value}>
+                  {filter.value}
                 </option>
               );
             })}
