@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TagAmount = ({ value, unit }) => {
+  if (!value) {
+    return null;
+  }
   const valLength = value.toString().length;
   return (
     <svg
