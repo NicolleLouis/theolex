@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Tag = ({ value }) => {
-  const adaptedW = Math.log(value.length) * 50;
+  const adaptedWidth = value ? Math.log(value.length) * 50 : 0;
   return (
     <svg
       className="bd-placeholder-img mr-2 rounded"
-      width={adaptedW}
+      width={adaptedWidth}
       height="32"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid slice"

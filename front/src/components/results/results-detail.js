@@ -17,9 +17,11 @@ const ResultsDetail = ({ content, ...props }) => {
             <div className="col">
               <span className="h8 font-weight-bold mb-0">{content.type}</span>
             </div>
-            <div className="col-auto">
-              <TagAmount value={content.monetary_sanction} unit="€" />
-            </div>
+            {content.monetary_sanction && (
+              <div className="col-auto">
+                <TagAmount value={content.monetary_sanction} unit="€" />
+              </div>
+            )}
           </div>
         </Card>
         <Card className="card-stats">

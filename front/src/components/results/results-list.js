@@ -33,7 +33,9 @@ const ResultsList = props => {
                   <Date value={content.decision_date} />
                 </div>
                 <div className="col-md-4 themed-grid-col">
-                  <TagAmount value={content.monetary_sanction} unit="€" />
+                  {content.monetary_sanction && (
+                    <TagAmount value={content.monetary_sanction} unit="€" />
+                  )}
                   <Tag value={content.type} />
                 </div>
               </div>
