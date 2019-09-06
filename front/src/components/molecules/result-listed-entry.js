@@ -25,6 +25,14 @@ const ResultListedEntry = ({ content }) => {
             </ReactTooltip>
           </div>
           <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125 ">
+            <strong className="d-block text-gray-dark" data-tip data-for="authorities">
+              {content.authorities}
+            </strong>
+            <ReactTooltip id="authorities" type="info">
+              <span>Authorities</span>
+            </ReactTooltip>
+          </div>
+          <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125 ">
             <strong className="d-block text-gray-dark" data-tip data-for="type">
               {content.type}
             </strong>
