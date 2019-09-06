@@ -1,12 +1,12 @@
 import React from "react";
-import ResultDetailedEntry from "./result-detailed-entry";
+import ResultListedEntry from "./result-listed-entry";
 
 const ResultList = ({ result }) => {
   return (
     <>
       {result.hits.length > 0 &&
         result.hits.map((entry, index) => (
-          <ResultDetailedEntry key={index} content={entry} />
+          <ResultListedEntry key={index} content={entry} />
         ))}
     </>
   );

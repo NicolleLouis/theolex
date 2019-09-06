@@ -4,6 +4,9 @@ import axios from "axios";
 import Searchbar from "../organisms/searchbar";
 import FiltersSection from "../organisms/filters-section";
 import ResultSection from "../organisms/result-section";
+import ResultDetailedEntry from "../molecules/result-detailed-entry";
+import ModalWrapper from "../molecules/modal-wrapper";
+import ModalContext from "../../config/modal-context";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -49,6 +52,11 @@ const SearchPage = () => {
     setTriggerSearch("Filters: ".concat(JSON.stringify(filters)));
   }, [filters]);
 
+  /* Manage Modal */
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [detailedContent, setDetailedContent] = useState({});
+  const contextValue = { isModalOpen, setIsModalOpen, setDetailedContent };
+
   return (
     <>
       <Searchbar
@@ -57,11 +65,22 @@ const SearchPage = () => {
         setTriggerSearch={setTriggerSearch}
       />
       <FiltersSection filters={filters} setFilters={setFilters} />
-      <ResultSection
-        isError={isError}
-        isSearching={isSearching}
-        result={result}
-      />
+      <ModalContext.Provider value={contextValue}>
+        <ResultSection
+          isError={isError}
+          isSearching={isSearching}
+          result={result}
+        />
+      </ModalContext.Provider>
+      <ModalWrapper
+        isModalOpen={isModalOpen}
+        title={detailedContent.name}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+      >
+        <ResultDetailedEntry content={detailedContent} />
+      </ModalWrapper>
     </>
   );
 };
