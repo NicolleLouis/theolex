@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tag = ({ value }) => {
-  const adaptedWidth = value.label ? Math.log(value.label.length) * 50 : 0;
+const Tag = ({ tag }) => {
+  const adaptedWidth = tag.label ? Math.log(tag.label.length) * 50 : 0;
   return (
     <svg
       className="bd-placeholder-img mr-2 rounded"
@@ -13,9 +13,9 @@ const Tag = ({ value }) => {
       focusable="false"
       role="img"
       aria-label="monetary_sanction"
-      data-tip data-for={value.color}
+      data-tip data-for={tag.color}
     >
-      <rect width="100%" height="100%" fill={value.color ? value.color : "blue"} />
+      <rect width="100%" height="100%" fill={tag.color ? tag.color : "blue"} />
       <text
         x="15%"
         y="70%"
@@ -23,7 +23,7 @@ const Tag = ({ value }) => {
         fontSize="14px"
         fill="white"
       >
-        {value.label ? value.label : ""}
+        {tag.label ? tag.label : ""}
       </text>
     </svg>
   );
