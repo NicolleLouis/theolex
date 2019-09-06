@@ -14,6 +14,7 @@ const ResultListedEntry = ({ content }) => {
             props.setDetailedContent(content);
             props.setIsModalOpen(true);
           }}
+          style={{ cursor: "pointer" }}
         >
           <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125 ">
             <strong className="d-block text-gray-dark">{content.name}</strong>

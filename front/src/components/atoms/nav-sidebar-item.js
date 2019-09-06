@@ -16,6 +16,7 @@ const NavSidebarItem = ({ item, sidenavTab, setSidenavTab }) => {
         aria-selected={sidenavTab === item.index}
         aria-controls={"navbar-".concat(item.label.toLowerCase())}
         onClick={e => toggleNavSidebarItem(e, item.index)}
+        style={{ cursor: "pointer" }}
       >
         <i className={classnames("ni ni-single-copy-04", item.color)} />
         <span className="nav-link-text ml-3">{item.label}</span>
