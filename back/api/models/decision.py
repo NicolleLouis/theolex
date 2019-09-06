@@ -2,7 +2,6 @@ from django.db import models
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from api.constant import string_separator
 from api.services.decision_service import DecisionService
 from api.services.formatter import FormatterService
 
@@ -106,4 +105,4 @@ class DecisionAdmin(ImportExportModelAdmin):
 
     def get_authorities(self, decision):
         return decision.get_many_to_many_values("authorities")
-    get_violations.short_description = "Authorities"
+    get_authorities.short_description = "Authorities"

@@ -10,12 +10,12 @@ class DecisionService:
 
     @staticmethod
     def convert_violations_to_tags(decision):
-        tag_color = "blue"
+        tag_color = "DarkCyan"
 
         decision_violations = decision.violations.all()
         violations_label = list(map(lambda violation: str(violation), decision_violations))
         violations_tag = list(map(lambda violation_label: {
-            "label": violations_label,
+            "label": violation_label,
             "color": tag_color
         }, violations_label))
         return violations_tag
