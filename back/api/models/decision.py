@@ -106,4 +106,4 @@ class DecisionAdmin(ImportExportModelAdmin):
 
     def get_authorities(self, decision):
         return decision.get_many_to_many_values("authorities")
-    get_violations.short_description = "Authorities"
+    get_authorities.short_description = "Authorities"
