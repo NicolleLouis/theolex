@@ -32,12 +32,10 @@ class Decision(models.Model):
     )
     violations = models.ManyToManyField(
         'Violation',
-        null=True,
         blank=True
     )
     authorities = models.ManyToManyField(
         'Authority',
-        null=True,
         blank=True
     )
 
@@ -65,7 +63,7 @@ class Decision(models.Model):
                 "color": "red"
             }
         )
-        # Add violations
+        # Refacto to convert many to many fields to tags
         tags.extend(DecisionService.convert_violations_to_tags(self))
         return tags
 
