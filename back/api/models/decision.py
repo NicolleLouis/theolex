@@ -49,7 +49,6 @@ class Decision(models.Model):
             'monetary_sanction': self.monetary_sanction,
             'type': self.type,
             'decision_date': self.decision_date,
-            'violations': self.get_many_to_many_values("violations"),
             'authorities': self.get_many_to_many_values("authorities"),
             'tags': self.get_tags()
         }
@@ -76,7 +75,7 @@ class Decision(models.Model):
                 many_to_many_objects
             )
         )
-        return string_separator.join(many_to_many_label)
+        return many_to_many_label
 
 
 class DecisionResource(resources.ModelResource):
