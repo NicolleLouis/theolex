@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Filter from "../molecules/filter";
 import Card from "../atoms/card";
 
@@ -6,7 +6,7 @@ const FiltersSection = ({filters, setFilters}) => {
 
   return (
     <Card>
-      <form>
+      <div className="form-group mb--5 mt--3">
         <div className="row">
           <Filter
             id="filter-type"
@@ -25,7 +25,7 @@ const FiltersSection = ({filters, setFilters}) => {
             setFilters={setFilters}
           />
         </div>
-      </form>
+      </div>
     </Card>
   );
 };
