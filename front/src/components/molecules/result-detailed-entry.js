@@ -2,6 +2,7 @@ import React from "react";
 import Moment from "react-moment";
 import Card from "../atoms/card";
 import TagWrapper from "./tag-wrapper";
+import ReactTooltip from "react-tooltip";
 
 const ResultDetailedEntry = ({ content }) => {
   return (
@@ -10,12 +11,28 @@ const ResultDetailedEntry = ({ content }) => {
         <Card className="card-stats">
           <div className="row">
             <div className="col">
-              <span className="h4 font-weight-bold mb-0">
+              <span
+                className="h4 font-weight-bold mb-0"
+                data-tip
+                data-for="decisionDate"
+              >
                 <Moment format="YYYY/MM/DD">{content.decision_date}</Moment>
               </span>
+              <ReactTooltip id="decisionDate" type="info">
+                <span>Decision date</span>
+              </ReactTooltip>
             </div>
             <div className="col">
-              <span className="h8 font-weight-bold mb-0">{content.type}</span>
+              <span
+                className="h8 font-weight-bold mb-0"
+                data-tip
+                data-for="type"
+              >
+                {content.type}
+              </span>
+              <ReactTooltip id="type" type="info">
+                <span>Type</span>
+              </ReactTooltip>
             </div>
             <div className="col-md-4 themed-grid-col">
               {content.tags &&

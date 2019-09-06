@@ -1,5 +1,6 @@
 import React from "react";
 import Tag from "../atoms/tag";
+import ReactTooltip from "react-tooltip";
 
 const TagWrapper = ({ value }) => {
   return (
@@ -14,6 +15,12 @@ const TagWrapper = ({ value }) => {
           };
           return <Tag key={index} value={formattedValue} />;
         })}
+      <ReactTooltip id="red" type="info">
+        <span>Monetary amount</span>
+      </ReactTooltip>
+      <ReactTooltip id="blue" type="info">
+        <span>Violation</span>
+      </ReactTooltip>
     </>
   );
 };
