@@ -7,5 +7,5 @@ class FormatterService:
     def format_monetary_amount(monetary_amount):
         if not monetary_amount:
             return None
-        # ToDo: human readable?
+        # ToDo: human readable
         return Decimal(monetary_amount).normalize().to_eng_string()
