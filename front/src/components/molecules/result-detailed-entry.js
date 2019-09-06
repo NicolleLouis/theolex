@@ -1,7 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import Card from "../atoms/card";
-import TagAmount from "../atoms/tag-amount";
+import TagWrapper from "./tag-wrapper";
 
 const ResultDetailedEntry = ({ content }) => {
   return (
@@ -17,11 +17,13 @@ const ResultDetailedEntry = ({ content }) => {
             <div className="col">
               <span className="h8 font-weight-bold mb-0">{content.type}</span>
             </div>
-            {content.monetary_sanction && (
-              <div className="col-auto">
-                <TagAmount value={content.monetary_sanction} unit="€" />
-              </div>
-            )}
+            <div className="col-md-4 themed-grid-col">
+              {content.tags &&
+                content.tags.length > 0 &&
+                content.tags.map((value, index) => (
+                  <TagWrapper key={index} value={value} />
+                ))}
+            </div>
           </div>
         </Card>
         <Card className="card-stats">
