@@ -2,7 +2,6 @@ from django.db import models
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from api.constant import string_separator
 from api.services.decision_service import DecisionService
 from api.services.formatter import FormatterService
 
