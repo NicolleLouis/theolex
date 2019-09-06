@@ -1,8 +1,8 @@
 import React from "react";
 
-const Searchbar = ({ searchTerm, setSearchTerm, triggerSearch }) => {
+const Searchbar = ({ searchTerm, setSearchTerm, setTriggerSearch }) => {
   const handleChange = event => setSearchTerm(event.target.value);
-
+  const handleClick = () => setTriggerSearch("Searchbar: ".concat(searchTerm));
   return (
     <nav className="navbar navbar-top navbar-expand-md border-bottom navbar-search navbar-search-light bg-secondary">
       <div className="container-fluid">
@@ -13,7 +13,7 @@ const Searchbar = ({ searchTerm, setSearchTerm, triggerSearch }) => {
                 <button
                   type="button"
                   className="input-group-text bg-gradient-blue"
-                  onClick={triggerSearch}
+                  onClick={handleClick}
                 >
                   <i className="fas fa-search" />
                 </button>
