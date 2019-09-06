@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Tag = ({ value }) => {
-  const adaptedWidth = value ? Math.log(value.length) * 50 : 0;
+  const adaptedWidth = value.label ? Math.log(value.label.length) * 50 : 0;
   return (
     <svg
       className="bd-placeholder-img mr-2 rounded"
@@ -14,7 +14,7 @@ const Tag = ({ value }) => {
       role="img"
       aria-label="monetary_sanction"
     >
-      <rect width="100%" height="100%" fill="#ed1250" />
+      <rect width="100%" height="100%" fill={value.color ? value.color : "blue"} />
       <text
         x="15%"
         y="70%"
@@ -22,13 +22,13 @@ const Tag = ({ value }) => {
         fontSize="14px"
         fill="white"
       >
-        {value}
+        {value.label ? value.label : ""}
       </text>
     </svg>
   );
 };
 
 Tag.propTypes = {
-  value: PropTypes.string
+  value: PropTypes.object
 };
 export default Tag;

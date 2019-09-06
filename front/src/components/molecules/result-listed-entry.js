@@ -1,8 +1,8 @@
 import React from "react";
 import Date from "../atoms/date";
-import TagAmount from "../atoms/tag-amount";
 import Tag from "../atoms/tag";
 import ModalContext from "../../config/modal-context";
+import TagWrapper from "./tag-wrapper";
 
 const ResultListedEntry = ({ content }) => {
   return (
@@ -19,14 +19,18 @@ const ResultListedEntry = ({ content }) => {
           <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125 ">
             <strong className="d-block text-gray-dark">{content.name}</strong>
           </div>
+          <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125 ">
+            <strong className="d-block text-gray-dark">{content.type}</strong>
+          </div>
           <div className="col-md-4 themed-grid-col media-body pb-3 mb-0 small lh-125">
             <Date value={content.decision_date} />
           </div>
           <div className="col-md-4 themed-grid-col">
-            {content.monetary_sanction && (
-              <TagAmount value={content.monetary_sanction} unit="€" />
-            )}
-            <Tag value={content.type} />
+            {content.tags &&
+              content.tags.length > 0 &&
+              content.tags.map((value, index) => (
+                <TagWrapper key={index} value={value} />
+              ))}
           </div>
         </div>
       )}
