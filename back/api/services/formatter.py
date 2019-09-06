@@ -1,11 +1,18 @@
-from decimal import Decimal
+from millify import millify
 
 
 class FormatterService:
 
     @staticmethod
     def format_monetary_amount(monetary_amount):
+        ##############
+        # Parameters #
+        ##############
+
+        prefixes = ["k", "M", "G"]
+
+        ##############
+
         if not monetary_amount:
             return None
-        # ToDo: human readable
-        return Decimal(monetary_amount).normalize().to_eng_string()
+        return millify(monetary_amount, precision=2, drop_nulls=False, prefixes=prefixes)
