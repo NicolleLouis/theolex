@@ -59,7 +59,7 @@ class Decision(models.Model):
             tags.append(
                 {
                     "label": FormatterService.format_monetary_amount(self.monetary_sanction),
-                    "color": "red"
+                    "color": "LightCoral"
                 }
             )
         # Add violations
