@@ -13,6 +13,7 @@ const Tag = ({ value }) => {
       focusable="false"
       role="img"
       aria-label="monetary_sanction"
+      data-tip data-for={value.color}
     >
       <rect width="100%" height="100%" fill={value.color ? value.color : "blue"} />
       <text
