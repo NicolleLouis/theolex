@@ -32,12 +32,10 @@ class Decision(models.Model):
     )
     violations = models.ManyToManyField(
         'Violation',
-        null=True,
         blank=True
     )
     authorities = models.ManyToManyField(
         'Authority',
-        null=True,
         blank=True
     )
 
