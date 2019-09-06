@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from api.repository.decision_repository import DecisionRepository
 from api.repository.violation_repository import ViolationRepository
 from api.services.decision_service import DecisionService
-from api.services.utils import transform_decision_list_to_json
 
 
 def get_decisions(request):
@@ -29,7 +28,7 @@ def get_decisions(request):
         # filtered_decisions_ = filtered_decisions.filter(**{"text__icontains": input_search_bar})
 
     return JsonResponse({
-        "hits": transform_decision_list_to_json(filtered_decisions)
+        "hits": DecisionService.transform_decision_list_to_json(filtered_decisions)
     })
 
 
