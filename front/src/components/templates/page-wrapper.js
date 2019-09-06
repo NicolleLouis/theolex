@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Head from "../head";
 import Sidebar from "../organisms/sidebar";
+import SearchPage from "./search-page";
 
 const sidebarContext = [
-  { index: 1, label: "DPA",  color: "text-pink" },
-  { index: 2, label: "Jurisprudence",  color: "text-blue" }
+  { index: 1, label: "DPA", color: "text-pink" },
+  { index: 2, label: "Jurisprudence", color: "text-blue" }
 ];
 
 const PageWrapper = ({ title }) => {
@@ -35,10 +36,21 @@ const PageWrapper = ({ title }) => {
 
   /* Manage page rendering */
   const [sidenavTab, setSidenavTab] = useState(1);
-  const SidebarContext = React.createContext({});
+  const renderPage = () => {
+    switch (sidenavTab) {
+      case 1:
+        return <SearchPage />;
+      case 2:
+        return <>Autre page</>;
+      default:
+        return <></>;
+    }
+  };
+
   useEffect(() => {
     console.log("Sidenavtab", sidenavTab);
   }, [sidenavTab]);
+
   return (
     <>
       {isSidenavOpen && (
@@ -55,6 +67,9 @@ const PageWrapper = ({ title }) => {
         isSidenavOpen={isSidenavOpen}
         toggleSidenav={toggleSidenav}
       />
+      <div className="main-content" id="panel">
+        {renderPage()}
+      </div>
     </>
   );
 };
