@@ -23,6 +23,14 @@ const ResultDetailedEntry = ({ content }) => {
               </ReactTooltip>
             </div>
             <div className="col">
+              <strong className="d-block text-gray-dark" data-tip data-for="authorities">
+                {content.authorities}
+              </strong>
+              <ReactTooltip id="authorities" type="info">
+                <span>Authorities</span>
+              </ReactTooltip>
+            </div>
+            <div className="col">
               <span
                 className="h8 font-weight-bold mb-0"
                 data-tip
