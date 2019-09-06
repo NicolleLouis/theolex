@@ -57,13 +57,14 @@ class Decision(models.Model):
     def get_tags(self):
         tags = []
         # Add monetary sanction
-        tags.append(
-            {
-                "label": FormatterService.format_monetary_amount(self.monetary_sanction),
-                "color": "red"
-            }
-        )
-        # Refacto to convert many to many fields to tags
+        if self.monetary_sanction:
+            tags.append(
+                {
+                    "label": FormatterService.format_monetary_amount(self.monetary_sanction),
+                    "color": "red"
+                }
+            )
+        # Add violations
         tags.extend(DecisionService.convert_violations_to_tags(self))
         return tags
 
