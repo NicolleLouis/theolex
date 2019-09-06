@@ -3,7 +3,7 @@ import Moment from "react-moment";
 import Card from "../atoms/card";
 import TagAmount from "../atoms/tag-amount";
 
-const ResultsDetail = ({ content, ...props }) => {
+const ResultDetailedEntry = ({ content }) => {
   return (
     <>
       <div className="col-12 col-md-12">
@@ -17,9 +17,11 @@ const ResultsDetail = ({ content, ...props }) => {
             <div className="col">
               <span className="h8 font-weight-bold mb-0">{content.type}</span>
             </div>
-            <div className="col-auto">
-              <TagAmount value={content.monetary_sanction} unit="€" />
-            </div>
+            {content.monetary_sanction && (
+              <div className="col-auto">
+                <TagAmount value={content.monetary_sanction} unit="€" />
+              </div>
+            )}
           </div>
         </Card>
         <Card className="card-stats">
@@ -32,4 +34,4 @@ const ResultsDetail = ({ content, ...props }) => {
   );
 };
 
-export default ResultsDetail;
+export default ResultDetailedEntry;

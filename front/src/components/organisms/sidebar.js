@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "styled-components";
 import classnames from "classnames";
+import NavSidebarItem from "../atoms/nav-sidebar-item";
 
 const Logo = styles.img`
   max-height: 5rem !important;
 `;
 
-const Sidebar = props => {
-
+const Sidebar = ({
+  sidebarContext,
+  sidenavTab,
+  setSidenavTab,
+  isSidenavOpen,
+  toggleSidenav
+}) => {
   // makes the sidenav normal on hover (actually when mouse enters on it)
   const onMouseEnterSidenav = () => {
     if (!document.body.classList.contains("g-sidenav-pinned")) {
@@ -40,11 +46,11 @@ const Sidebar = props => {
             <div className="ml-auto">
               <div
                 className={classnames("sidenav-toggler d-none d-xl-block", {
-                  active: props.isSidenavOpen
+                  active: isSidenavOpen
                 })}
                 data-action="sidenav-unpin"
                 data-target="#sidenav-main"
-                onClick={props.toggleSidenav}
+                onClick={toggleSidenav}
               >
                 <div className="sidenav-toggler-inner">
                   <i className="sidenav-toggler-line" />
@@ -56,35 +62,19 @@ const Sidebar = props => {
           </div>
 
           <div className="navbar-inner">
-            <div
-              className="collapse navbar-collapse"
-              id="sidenav-collapse-main"
-            >
+            <div className="nav-wrapper">
               <ul className="navbar-nav">
-                <li className="nav-item">
-                  <a
-                    className="nav-link active"
-                    href="#navbar-dpa"
-                    role="button"
-                    aria-expanded="true"
-                    aria-controls="navbar-dpa"
-                  >
-                    <i className="ni ni-single-copy-04 text-pink" />
-                    <span className="nav-link-text ml-3">DPA</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link active"
-                    href="#navbar-jurisprudence"
-                    role="button"
-                    aria-expanded="true"
-                    aria-controls="navbar-jurisprudence"
-                  >
-                    <i className="ni ni-single-copy-04 text-blue" />
-                    <span className="nav-link-text ml-3">Jurisprudences</span>
-                  </a>
-                </li>
+                {sidebarContext &&
+                  sidebarContext.map(navItem => {
+                    return (
+                      <NavSidebarItem
+                        key={navItem.index}
+                        item={navItem}
+                        sidenavTab={sidenavTab}
+                        setSidenavTab={setSidenavTab}
+                      />
+                    );
+                  })}
               </ul>
             </div>
           </div>

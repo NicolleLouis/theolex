@@ -2,14 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TagAmount = ({ value, unit }) => {
-  if (!value) {
-    return null;
-  }
-  const valLength = value.toString().length;
+  const adaptedWidth = value ? value.toString().length * 12.5 : 0;
   return (
     <svg
       className="bd-placeholder-img mr-2 rounded"
-      width={valLength * 12.5}
+      width={adaptedWidth}
       height="32"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid slice"
@@ -25,7 +22,7 @@ const TagAmount = ({ value, unit }) => {
         fontSize="14px"
         fill="white"
       >
-        {value.toString().concat(unit)}
+        {value && value.toString().concat(unit)}
       </text>
     </svg>
   );
