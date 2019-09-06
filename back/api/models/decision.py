@@ -51,7 +51,8 @@ class Decision(models.Model):
             'monetary_sanction': self.monetary_sanction,
             'type': self.type,
             'decision_date': self.decision_date,
-            'violations': self.get_violations(),
+            'violations': self.get_many_to_many_values("violations"),
+            'authorities': self.get_many_to_many_values("authorities"),
             'tags': self.get_tags()
         }
 
@@ -68,10 +69,15 @@ class Decision(models.Model):
         tags.extend(DecisionService.convert_violations_to_tags(self))
         return tags
 
-    def get_violations(self):
-        violations = self.violations.all()
-        violations_label = list(map(lambda violation: str(violation), violations))
-        return string_separator.join(violations_label)
+    def get_many_to_many_values(self, field_name):
+        many_to_many_objects = self.__getattribute__(field_name).all()
+        many_to_many_label = list(
+            map(
+                lambda many_to_many_object: str(many_to_many_object),
+                many_to_many_objects
+            )
+        )
+        return string_separator.join(many_to_many_label)
 
 
 class DecisionResource(resources.ModelResource):
@@ -91,8 +97,15 @@ class DecisionAdmin(ImportExportModelAdmin):
     resource_class = DecisionResource
     list_display = (
         'name',
-        'monetary_sanction',
         'type',
-        'decision_date',
-        'get_violations'
+        'get_violations',
+        'get_authorities'
     )
+
+    def get_violations(self, decision):
+        return decision.get_many_to_many_values("violations")
+    get_violations.short_description = "Violations"
+
+    def get_authorities(self, decision):
+        return decision.get_many_to_many_values("authorities")
+    get_violations.short_description = "Authorities"
