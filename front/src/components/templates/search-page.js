@@ -3,7 +3,7 @@ import getConfig from "next/config";
 import axios from "axios";
 import Searchbar from "../organisms/searchbar";
 import FiltersSection from "../organisms/filters-section";
-import ResultSection from "../results/result-section";
+import ResultSection from "../organisms/result-section";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;

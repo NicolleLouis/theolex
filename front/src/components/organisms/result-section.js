@@ -1,5 +1,5 @@
 import React from "react";
-import ResultsList from "./results-list";
+import ResultList from "../molecules/result-list";
 
 const ResultSection = ({ isError, isSearching, result }) => {
   return (
@@ -10,7 +10,7 @@ const ResultSection = ({ isError, isSearching, result }) => {
         <>
           <div>{result.hits.length} result(s)</div>
           <br />
-          <ResultsList data={result} />
+          <ResultList result={result} />
         </>
       )}
     </div>

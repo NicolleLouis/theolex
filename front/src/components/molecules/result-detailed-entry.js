@@ -3,7 +3,7 @@ import Moment from "react-moment";
 import Card from "../atoms/card";
 import TagAmount from "../atoms/tag-amount";
 
-const ResultsDetail = ({ content, ...props }) => {
+const ResultDetailedEntry = ({ content }) => {
   return (
     <>
       <div className="col-12 col-md-12">
@@ -34,4 +34,4 @@ const ResultsDetail = ({ content, ...props }) => {
   );
 };
 
-export default ResultsDetail;
+export default ResultDetailedEntry;

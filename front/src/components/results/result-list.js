@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ModalWrapper from "../molecules/modal-wrapper";
-import ResultsDetail from "./results-detail";
+import ResultDetailedEntry from "../molecules/result-detailed-entry";
 import TagAmount from "../atoms/tag-amount";
 import Date from "../atoms/date";
 import Tag from "../atoms/tag";
 
-const ResultsList = props => {
+const ResultList = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [detailedContent, setDetailedContent] = useState({});
   return (
@@ -49,10 +49,10 @@ const ResultsList = props => {
           setIsModalOpen(false);
         }}
       >
-        <ResultsDetail content={detailedContent} />
+        <ResultDetailedEntry content={detailedContent} />
       </ModalWrapper>
     </>
   );
 };
 
-export default ResultsList;
+export default ResultList;

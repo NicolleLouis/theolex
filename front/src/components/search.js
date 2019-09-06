@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
-import ResultsList from "./results/results-list";
+import ResultList from "./results/result-list";
 import SearchButton from "./atoms/search-button";
 import FiltersSection from "./organisms/filters-section";
 
@@ -94,7 +94,7 @@ const Search = () => {
             <>
               <div>{results.hits.length} result(s)</div>
               <br />
-              <ResultsList data={results} />
+              <ResultList data={results} />
             </>
           )
         )}
