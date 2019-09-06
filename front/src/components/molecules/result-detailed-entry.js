@@ -1,19 +1,8 @@
 import React from "react";
 import Moment from "react-moment";
 import Card from "../atoms/card";
-import Tag from "../atoms/tag";
 import TagWrapper from "./tag-wrapper";
 
-const renderTags = (value, index) => {
-  if (value.label) {
-    switch (typeof value.label) {
-      case "string":
-        return <Tag key={index} value={value} />;
-      case "object":
-        return <TagWrapper key={index} value={value} />;
-    }
-  }
-};
 const ResultDetailedEntry = ({ content }) => {
   return (
     <>
@@ -30,8 +19,10 @@ const ResultDetailedEntry = ({ content }) => {
             </div>
             <div className="col-md-4 themed-grid-col">
               {content.tags &&
-              content.tags.length > 0 &&
-              content.tags.map((value, index) => renderTags(value, index))}
+                content.tags.length > 0 &&
+                content.tags.map((value, index) => (
+                  <TagWrapper key={index} value={value} />
+                ))}
             </div>
           </div>
         </Card>
