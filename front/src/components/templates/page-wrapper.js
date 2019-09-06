@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import Head from "../head";
+import Head from "./head";
 import Sidebar from "../organisms/sidebar";
 import SearchPage from "./search-page";
 
