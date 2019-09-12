@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.core.management.base import BaseCommand
+import csv
+import os
 
-from api.repository.decision_repository import DecisionRepository
-from api.repository.violation_repository import ViolationRepository
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
@@ -13,16 +13,13 @@ class Command(BaseCommand):
         # Parameters #
         ##############
 
-        fixtures = [
-            ["Test", ["TWEA", "SSR"]]
-        ]
+        file_name = "decision_violation.csv"
+        relative_path = "api/data/{}".format(file_name)
+        current_directrory = os.path.dirname(os.path.realpath('__file__'))
 
         ##############
 
-        for fixture in fixtures:
-            decision = DecisionRepository.get_decision_by_name(fixture[0])
-            violation_labels = fixture[1]
-            for label in violation_labels:
-                violation = ViolationRepository.get_violation_by_name(name=label)
-                decision.violations.add(violation)
-            decision.save()
+        with open(os.path.join(current_directrory, relative_path)) as csvfile:
+            readCSV = csv.reader(csvfile, delimiter=',')
+            for row in readCSV:
+                print(row)
