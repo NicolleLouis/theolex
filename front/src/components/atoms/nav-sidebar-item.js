@@ -18,7 +18,7 @@ const NavSidebarItem = ({ item, sidenavTab, setSidenavTab }) => {
         onClick={e => toggleNavSidebarItem(e, item.index)}
         style={{ cursor: "pointer" }}
       >
-        <i className={classnames("ni ni-single-copy-04", item.color)} />
+        <i className={classnames(item.css, item.color)} />
         <span className="nav-link-text ml-3">{item.label}</span>
       </a>
     </li>
