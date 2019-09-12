@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-from django.core.management.base import BaseCommand
-
 from api.repository.decision_repository import DecisionRepository
 
 
-class Command(BaseCommand):
-
-    def handle(self, *args, **options):
-
+class CleanDecisionService:
+    @staticmethod
+    def clean_decision_type():
         ##############
         # Parameters #
         ##############
@@ -32,3 +28,29 @@ class Command(BaseCommand):
         print("Finished cleaning")
         print(str(number_of_changes) + " lines changed")
         print("##############")
+
+    @staticmethod
+    def compute_justice_type():
+        ##############
+        # Parameters #
+        ##############
+
+        list_type_negociated_agreements = [
+            "CJIP",
+            "DPA",
+            "Guilty Plea Agreement",
+            "NPA",
+            "NPA Addendum"
+        ]
+        negociated_agreements = "Negociated Agreements"
+        regulatory_decision = "Regulatory Decisions"
+
+        ##############
+
+        decisions = DecisionRepository.fetch_all_decisions()
+        for decision in decisions:
+            if decision.type in list_type_negociated_agreements:
+                decision.justice_type = negociated_agreements
+            else:
+                decision.justice_type = regulatory_decision
+            decision.save()
