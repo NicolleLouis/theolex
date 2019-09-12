@@ -41,3 +41,19 @@ def get_filter_values(request):
             "filter_label": filter_label,
             "values": distinct_values_of_field
         })
+
+
+def get_amount_by_company(request):
+    return JsonResponse({
+        "hits": 2,
+        "value": [
+            {
+                "company": "SG",
+                "amount_paid": 130
+            },
+            {
+                "company": "BNP",
+                "amount_paid": 150
+            },
+        ]
+    })
