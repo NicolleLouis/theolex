@@ -4,7 +4,7 @@ from django.http import JsonResponse
 
 from api.repository.decision_repository import DecisionRepository
 from api.repository.violation_repository import ViolationRepository
-from api.services.decision_service import DecisionService
+from api.services.decision.decision_service import DecisionService
 
 
 def get_decisions(request):

@@ -2,7 +2,7 @@ from django.db import models
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from api.services.decision_service import DecisionService
+from api.services.decision.decision_service import DecisionService
 from api.services.formatter import FormatterService
 
 
@@ -22,6 +22,10 @@ class Decision(models.Model):
     )
     # A supprimer quand on aura les modèles sous jacents? Ou au moins Enum et pas texte
     type = models.TextField(
+        null=True,
+        blank=True
+    )
+    justice_type = models.TextField(
         null=True,
         blank=True
     )
@@ -46,6 +50,7 @@ class Decision(models.Model):
             'name': self.name,
             'text': self.text,
             'monetary_sanction': self.monetary_sanction,
+            'justice_type': self.justice_type,
             'type': self.type,
             'decision_date': self.decision_date,
             'authorities': self.get_many_to_many_values("authorities"),
@@ -94,6 +99,7 @@ class DecisionAdmin(ImportExportModelAdmin):
     resource_class = DecisionResource
     list_display = (
         'name',
+        'justice_type',
         'type',
         'get_violations',
         'get_authorities'
