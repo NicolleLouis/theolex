@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getConfig from "next/config";
 import PropTypes from "prop-types";
-import _ from "lodash";
 import classnames from "classnames";
 import Label from "../atoms/label";
 import axios from "axios";
@@ -9,13 +8,13 @@ const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
 const GET_FILTERS_VALUE = API_URL + "/get_filter_values";
 
-const Filter = ({ id, label, className, filters, setFilters, value }) => {
+const Filter = ({ id, name, label, className, filters, setFilters, value }) => {
   const [fetchError, setFetchError] = useState(false);
   const [filterValues, setFilterValues] = useState([]);
 
   const getQueryParams = () => {
     let params = {};
-    params["filter_label"] = label;
+    params["filter_label"] = name;
     return { params: params };
   };
   /* Get filters dropdown values */
@@ -55,13 +54,13 @@ const Filter = ({ id, label, className, filters, setFilters, value }) => {
   return (
     <div className={className}>
       <div className="form-group">
-        <Label htmlFor={id}>{_.capitalize(label)}</Label>
+        <Label htmlFor={id}>{label}</Label>
         <select
           id={id}
           className={classnames("form-control", {
             "is-invalid": fetchError
           })}
-          name={label}
+          name={name}
           onChange={handleChange}
           value={value}
           style={{ cursor: "pointer" }}
