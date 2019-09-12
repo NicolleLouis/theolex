@@ -3,11 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Head from "./head";
 import Sidebar from "../organisms/sidebar";
 import SearchPage from "./search-page";
-
-const sidebarContext = [
-  { index: 1, label: "DPA", color: "text-pink" },
-  { index: 2, label: "Jurisprudence", color: "text-blue" }
-];
+import { sidebarContext } from "../../config";
 
 const PageWrapper = ({ title }) => {
   /* Sidebar Management */
