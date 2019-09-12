@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Head from "./head";
 import Sidebar from "../organisms/sidebar";
@@ -46,10 +46,6 @@ const PageWrapper = ({ title }) => {
         return <></>;
     }
   };
-
-  useEffect(() => {
-    console.log("Sidenavtab", sidenavTab);
-  }, [sidenavTab]);
 
   return (
     <>
