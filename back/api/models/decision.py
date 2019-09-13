@@ -41,6 +41,10 @@ class Decision(models.Model):
         'Authority',
         blank=True
     )
+    organizations = models.ManyToManyField(
+        'Organization',
+        blank=True
+    )
 
     def __str__(self):
         return str(self.name)
@@ -102,7 +106,8 @@ class DecisionAdmin(ImportExportModelAdmin):
         'justice_type',
         'type',
         'get_violations',
-        'get_authorities'
+        'get_authorities',
+        'get_organizations'
     )
 
     def get_violations(self, decision):
@@ -112,3 +117,7 @@ class DecisionAdmin(ImportExportModelAdmin):
     def get_authorities(self, decision):
         return decision.get_many_to_many_values("authorities")
     get_authorities.short_description = "Authorities"
+
+    def get_organizations(self, decision):
+        return decision.get_many_to_many_values("organizations")
+    get_organizations.short_description = "Organizations"
