@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from api.repository.decision_repository import DecisionRepository
 from api.repository.violation_repository import ViolationRepository
 from api.services.decision.decision_service import DecisionService
+from api.services.organization.organization_service import OrganizationService
 
 
 def get_decisions(request):
@@ -44,16 +45,9 @@ def get_filter_values(request):
 
 
 def get_amount_by_company(request):
+    all_organization_with_total_amount_paid = OrganizationService.get_all_organization_with_total_amount_paid()
+
     return JsonResponse({
-        "hits": 2,
-        "value": [
-            {
-                "company": "SG",
-                "amount_paid": 130
-            },
-            {
-                "company": "BNP",
-                "amount_paid": 150
-            },
-        ]
+        "hits": len(all_organization_with_total_amount_paid),
+        "value": all_organization_with_total_amount_paid
     })

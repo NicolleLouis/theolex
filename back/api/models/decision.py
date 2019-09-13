@@ -35,15 +35,18 @@ class Decision(models.Model):
     )
     violations = models.ManyToManyField(
         'Violation',
-        blank=True
+        blank=True,
+        related_name='decisions'
     )
     authorities = models.ManyToManyField(
         'Authority',
-        blank=True
+        blank=True,
+        related_name='decisions'
     )
     organizations = models.ManyToManyField(
         'Organization',
-        blank=True
+        blank=True,
+        related_name='decisions'
     )
 
     def __str__(self):
