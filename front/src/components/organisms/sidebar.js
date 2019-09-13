@@ -38,7 +38,7 @@ const Sidebar = ({
           <div className="sidenav-header d-flex align-items-center">
             <a className="navbar-brand" href="/">
               <Logo
-                src="../static/img/brand/theolex-logo.png"
+                src="../static/img/brand/theolex-logo-trans.png"
                 className="navbar-brand-img"
                 alt="..."
               />
