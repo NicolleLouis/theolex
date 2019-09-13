@@ -4,6 +4,7 @@ import Head from "./head";
 import Sidebar from "../organisms/sidebar";
 import SearchPage from "./search-page";
 import { sidebarContext } from "../../config";
+import AnalyticsPage from "./analytics-page";
 
 const PageWrapper = ({ title }) => {
   /* Sidebar Management */
@@ -37,7 +38,7 @@ const PageWrapper = ({ title }) => {
       case 1:
         return <SearchPage />;
       case 2:
-        return <>Autre page</>;
+        return <AnalyticsPage />;
       default:
         return <></>;
     }
