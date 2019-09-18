@@ -7,7 +7,7 @@ import FiltersSection from "../organisms/filters-section";
 import ResultSection from "../organisms/result-section";
 import ResultDetailedEntry from "../molecules/result-detailed-entry";
 import ModalWrapper from "../molecules/modal-wrapper";
-import ModalContext from "../../config/modal-context";
+import ApplicationContext from "../../config/application-context";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -91,13 +91,13 @@ const SearchPage = () => {
         setTriggerSearch={setTriggerSearch}
       />
       <FiltersSection filters={filters} setFilters={setFilters} />
-      <ModalContext.Provider value={contextValue}>
+      <ApplicationContext.Provider value={contextValue}>
         <ResultSection
           isError={isError}
           isSearching={isSearching}
           result={result}
         />
-      </ModalContext.Provider>
+      </ApplicationContext.Provider>
       <ModalWrapper
         isModalOpen={isModalOpen}
         title={detailedContent.name}

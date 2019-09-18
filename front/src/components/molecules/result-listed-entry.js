@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import ModalContext from "../../config/modal-context";
+import ApplicationContext from "../../config/application-context";
 import TagWrapper from "./tag-wrapper";
 import ReactTooltip from "react-tooltip";
 import DecisionDate from "../atoms/decision-date";
@@ -8,7 +8,7 @@ import AuthoritiesWrapper from "./authorities-wrapper";
 
 const ResultListedEntry = ({ content }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { modalCxt, basketCxt } = useContext(ModalContext);
+  const { modalCxt, basketCxt } = useContext(ApplicationContext);
   const handleClick = () => {
     modalCxt.setDetailedContent(content);
     modalCxt.setIsModalOpen(true);
