@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
+import cookie from "js-cookie";
 import Searchbar from "../organisms/searchbar";
 import FiltersSection from "../organisms/filters-section";
 import ResultSection from "../organisms/result-section";
@@ -52,10 +53,40 @@ const SearchPage = () => {
     setTriggerSearch("Filters: ".concat(JSON.stringify(filters)));
   }, [filters]);
 
+  /* Basket state management */
+  const [basket, setBasket] = useState({ decisions: [] });
+  /* Basket init */
+  useEffect(() => {
+    const cookieBasket = cookie.get("basket");
+    setBasket(
+      cookie.get("basket") !== undefined
+        ? JSON.parse(cookie.get("basket"))
+        : { decisions: [] }
+    );
+  }, []);
+
+  /* Basket cookie update */
+  useEffect(() => {
+    cookie.remove("basket");
+    cookie.set("basket", basket, { expires: 1000 });
+    console.log("cookie basket AFTER SET", cookie.get("basket"));
+  }, [basket]);
+
+  /* Reset basket */
+  const resetBasket = () => setBasket({ decisions: [] });
+
   /* Manage Modal */
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [detailedContent, setDetailedContent] = useState({});
-  const contextValue = { isModalOpen, setIsModalOpen, setDetailedContent };
+
+  const contextValue = {
+    modalCxt: { isModalOpen, setIsModalOpen, setDetailedContent },
+    basketCxt: {
+      basket,
+      setBasket,
+      resetBasket
+    }
+  };
 
   return (
     <>

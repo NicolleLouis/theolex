@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ModalContext from "../../config/modal-context";
 import TagWrapper from "./tag-wrapper";
 import ReactTooltip from "react-tooltip";
@@ -8,19 +8,46 @@ import AuthoritiesWrapper from "./authorities-wrapper";
 
 const ResultListedEntry = ({ content }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const handleClick = props => {
-    console.log("handleClick");
-    props.setDetailedContent(content);
-    props.setIsModalOpen(true);
+  const { modalCxt, basketCxt } = useContext(ModalContext);
+  const handleClick = () => {
+    modalCxt.setDetailedContent(content);
+    modalCxt.setIsModalOpen(true);
   };
-  const handleOnChange = event => {
-    console.log("handleOnChange");
-    console.log(event.target);
-    setIsChecked(!isChecked);
+
+  const handleOnChange = (content, event) => {
+    if (basketCxt.basket) {
+      const basketToUpdate = basketCxt.basket;
+      if (basketToUpdate.decisions && basketToUpdate.decisions.length > 0) {
+        let filteredDecisions = basketToUpdate.decisions.filter(
+          decision => decision.id !== content.id
+        );
+        basketToUpdate.decisions = filteredDecisions;
+      }
+      if (!isChecked) {
+        basketToUpdate.decisions.push(
+          Object.assign({}, content, { isChecked: true })
+        );
+      }
+      basketCxt.setBasket(Object.assign({}, basketToUpdate));
+      setIsChecked(!isChecked);
+    }
   };
+
+  /* initalized isChecked with basket */
+  useEffect(() => {
+    if (content && basketCxt && basketCxt.basket.decisions) {
+      let currentDecision = basketCxt.basket.decisions.find(
+        decision => decision.id === content.id
+      );
+      if (currentDecision) {
+        setIsChecked(currentDecision.isChecked);
+      }
+    }
+  }, [content, basketCxt]);
+
   return (
-    <ModalContext.Consumer>
-      {props => (
+    <>
+      {content && (
         <div className="row mb-3 media text-muted pt-3 border-bottom border-primary">
           <div className="custom-control custom-checkbox mb-3 col-md-4 themed-grid-col pb-3">
             <input
@@ -28,7 +55,7 @@ const ResultListedEntry = ({ content }) => {
               id={`decision-${content.id}`}
               type="checkbox"
               checked={isChecked}
-              onChange={handleOnChange}
+              onChange={event => handleOnChange(content, event)}
             />
             <label
               className="custom-control-label small lh-125"
@@ -52,14 +79,14 @@ const ResultListedEntry = ({ content }) => {
             data-tip
             data-for="authorities"
             style={{ cursor: "pointer" }}
-            onClick={() => handleClick(props)}
+            onClick={handleClick}
           >
             <AuthoritiesWrapper authorities={content.authorities} />
           </div>
           <div
             className="col-md-4 media-body pb-3 mb-0 lh-125 "
             style={{ cursor: "pointer" }}
-            onClick={() => handleClick(props)}
+            onClick={handleClick}
           >
             <DecisionType type={content.type} />
           </div>
@@ -69,7 +96,7 @@ const ResultListedEntry = ({ content }) => {
               data-tip
               data-for="decisionDate"
               style={{ cursor: "pointer" }}
-              onClick={() => handleClick(props)}
+              onClick={handleClick}
             >
               <DecisionDate date={content.decision_date} />
             </div>
@@ -77,7 +104,7 @@ const ResultListedEntry = ({ content }) => {
           <TagWrapper tags={content.tags} />
         </div>
       )}
-    </ModalContext.Consumer>
+    </>
   );
 };
 
