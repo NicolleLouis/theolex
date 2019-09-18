@@ -54,6 +54,7 @@ class Decision(models.Model):
 
     def to_json(self):
         return {
+            'id': self.id,
             'name': self.name,
             'text': self.text,
             'monetary_sanction': self.monetary_sanction,
