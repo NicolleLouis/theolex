@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import Card from "../atoms/card";
+import { sortBy } from "lodash";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -35,16 +36,60 @@ const withAmountByCompany = Comp => props => {
 };
 
 const TableAmountByCompany = ({ amountByCompany, error }) => {
+  const [sorted, setSorted] = useState({});
+  const [filteredCompanies, setFilteredCompany] = useState([]);
+
+  useEffect(() => {
+    setFilteredCompany(Array.from(amountByCompany));
+    setSorted({ column: "company", sort: "asc" });
+  }, [amountByCompany]);
+
+  useEffect(() => {
+    if (sorted.sort === "asc") {
+      setFilteredCompany(sortBy(filteredCompanies, [sorted.column]));
+    } else {
+      setFilteredCompany(sortBy(filteredCompanies, [sorted.column]).reverse());
+    }
+  }, [sorted]);
+
+  const handleSort = e => {
+    e.persist();
+
+    if (sorted.sort === "asc") {
+      setSorted({
+        column: e.target.id,
+        sort: "desc"
+      });
+    } else {
+      setSorted({
+        column: e.target.id,
+        sort: "asc"
+      });
+    }
+  };
+
   return (
     <Card>
       <div className="table-responsive">
         <table className="table align-items-center table-flush">
           <thead className="thead-light">
             <tr>
-              <th scope="col" className="sort" data-sort="label">
+              <th
+                scope="col"
+                id="company"
+                className="sort"
+                data-sort="label"
+                onClick={handleSort}
+              >
                 Company
               </th>
-              <th scope="col" className="sort" data-sort="value">
+              <th
+                scope="col"
+                id="amount_paid"
+                className="sort"
+                data-sort="label"
+                onClick={handleSort}
+              >
                 Amount
               </th>
             </tr>
@@ -62,8 +107,8 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
                 </td>
               </tr>
             ) : (
-              amountByCompany &&
-              amountByCompany.map((amountAndCompany, index) => (
+              filteredCompanies &&
+              filteredCompanies.map((amountAndCompany, index) => (
                 <tr key={index}>
                   <th scope="row">
                     <span className="name mb-0 text-sm">
