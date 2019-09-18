@@ -18,16 +18,19 @@ const ResultListedEntry = ({ content }) => {
     if (basketCxt.basket) {
       const basketToUpdate = basketCxt.basket;
       if (basketToUpdate.decisions && basketToUpdate.decisions.length > 0) {
+        /* Remove current decision in current basket */
         let filteredDecisions = basketToUpdate.decisions.filter(
           decision => decision.id !== content.id
         );
         basketToUpdate.decisions = filteredDecisions;
       }
       if (!isChecked) {
+        /* Push to basket only if it is checked */
         basketToUpdate.decisions.push(
           Object.assign({}, content, { isChecked: true })
         );
       }
+      /* Update basket */
       basketCxt.setBasket(Object.assign({}, basketToUpdate));
       setIsChecked(!isChecked);
     }

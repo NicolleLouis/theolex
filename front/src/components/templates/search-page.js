@@ -69,7 +69,6 @@ const SearchPage = () => {
   useEffect(() => {
     cookie.remove("basket");
     cookie.set("basket", basket, { expires: 1000 });
-    console.log("cookie basket AFTER SET", cookie.get("basket"));
   }, [basket]);
 
   /* Reset basket */
@@ -81,11 +80,7 @@ const SearchPage = () => {
 
   const contextValue = {
     modalCxt: { isModalOpen, setIsModalOpen, setDetailedContent },
-    basketCxt: {
-      basket,
-      setBasket,
-      resetBasket
-    }
+    basketCxt: { basket, setBasket, resetBasket }
   };
 
   return (
