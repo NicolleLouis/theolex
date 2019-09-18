@@ -13,7 +13,16 @@ const ResultSection = ({ isError, isSearching, result }) => {
         result.hits &&
         result.hits.length > 0 && (
           <>
-            <div>{result.hits.length} result(s)</div>
+            <div className="align-items-center py-4 row">
+              <div className="col-7 col-lg-4">
+                <div>{result.hits.length} result(s)</div>
+              </div>
+              <div className="text-md-right col-4 col-lg-4 pr-4">
+                <button className="btn-neutral btn btn-default btn-sm">
+                  Benchmark
+                </button>
+              </div>
+            </div>
             <br />
             <ResultList result={result} />
           </>
