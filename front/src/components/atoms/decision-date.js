@@ -1,6 +1,6 @@
 import React from "react";
-import Date from "./date";
 import ReactTooltip from "react-tooltip";
+import Date from "./date";
 
 const DecisionDate = ({date}) => {
   return (

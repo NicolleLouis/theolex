@@ -28,7 +28,9 @@ const ResultListedEntry = ({ content }) => {
           </div>
           <AuthoritiesWrapper authorities={content.authorities} />
           <DecisionType type={content.type} />
-          <DecisionDate date={content.decision_date} />
+          {content.decision_date && (
+            <DecisionDate date={content.decision_date} />
+          )}
           <TagWrapper tags={content.tags} />
         </div>
       )}

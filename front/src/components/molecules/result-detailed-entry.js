@@ -11,9 +11,15 @@ const ResultDetailedEntry = ({ content }) => {
       <div className="col-12 col-md-12">
         <Card className="card-stats">
           <div className="row">
-            <DecisionDate value={content.decision_date}/>
+            {content.decision_date && (
+              <DecisionDate date={content.decision_date} />
+            )}
             <div className="col">
-              <strong className="d-block text-gray-dark" data-tip data-for="authorities">
+              <strong
+                className="d-block text-gray-dark"
+                data-tip
+                data-for="authorities"
+              >
                 {content.authorities}
               </strong>
               <ReactTooltip id="authorities" type="info">
