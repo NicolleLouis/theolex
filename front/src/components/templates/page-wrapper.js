@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Head from "./head";
 import Sidebar from "../organisms/sidebar";
 import SearchPage from "./search-page";
-import { sidebarContext } from "../../config";
+import { sidebarConfig } from "../../config";
 import AnalyticsPage from "./analytics-page";
 
 const PageWrapper = ({ title }) => {
@@ -54,7 +54,7 @@ const PageWrapper = ({ title }) => {
       <Head title={title} />
 
       <Sidebar
-        sidebarContext={sidebarContext}
+        sidebarContext={sidebarConfig}
         sidenavTab={sidenavTab}
         setSidenavTab={setSidenavTab}
         isSidenavOpen={isSidenavOpen}
