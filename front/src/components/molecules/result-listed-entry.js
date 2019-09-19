@@ -10,29 +10,29 @@ const ResultListedEntry = ({ content }) => {
   const [isChecked, setIsChecked] = useState(false);
   const { modalCxt, basketCxt } = useContext(ApplicationContext);
   const handleClick = () => {
-    modalCxt.setModalType("result");
     modalCxt.setDetailedContent(content);
     modalCxt.setIsModalOpen(true);
   };
 
-  const handleOnChange = (content, event) => {
-    if (basketCxt.basket) {
-      const basketToUpdate = basketCxt.basket;
-      if (basketToUpdate.decisions && basketToUpdate.decisions.length > 0) {
-        /* Remove current decision in current basket */
-        let filteredDecisions = basketToUpdate.decisions.filter(
-          decision => decision.id !== content.id
-        );
-        basketToUpdate.decisions = filteredDecisions;
-      }
+  const handleOnChange = content => {
+    const { basket } = basketCxt;
+    if (basket && basket.decisions && basket.decisions.length > 0) {
+      /* Remove current decision in basket */
+      const decisionsWithoutCurrent = basket.decisions.filter(
+        decision => decision.id !== content.id
+      );
+
       if (!isChecked) {
         /* Push to basket only if it is checked */
-        basketToUpdate.decisions.push(
+        decisionsWithoutCurrent.push(
           Object.assign({}, content, { isChecked: true })
         );
       }
+      const newBasket = Object.assign({}, basket, {
+        decisions: decisionsWithoutCurrent
+      });
       /* Update basket */
-      basketCxt.setBasket(Object.assign({}, basketToUpdate));
+      basketCxt.setBasket(newBasket);
       setIsChecked(!isChecked);
     }
   };
