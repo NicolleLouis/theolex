@@ -10,6 +10,7 @@ const ResultListedEntry = ({ content }) => {
   const [isChecked, setIsChecked] = useState(false);
   const { modalCxt, basketCxt } = useContext(ApplicationContext);
   const handleClick = () => {
+    modalCxt.setModalType("result");
     modalCxt.setDetailedContent(content);
     modalCxt.setIsModalOpen(true);
   };

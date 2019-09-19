@@ -8,6 +8,7 @@ import ResultSection from "../organisms/result-section";
 import ResultDetailedEntry from "../molecules/result-detailed-entry";
 import ModalWrapper from "../molecules/modal-wrapper";
 import ApplicationContext from "../../config/application-context";
+import BenchmarkPage from "./benchmark-page";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -76,37 +77,49 @@ const SearchPage = () => {
 
   /* Manage Modal */
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
   const [detailedContent, setDetailedContent] = useState({});
 
+  const onClose = () => setIsModalOpen(false);
+
+  const renderModal = type => {
+    switch (type) {
+      case "result":
+        return <ResultDetailedEntry content={detailedContent} />;
+      case "benchmark":
+        return <BenchmarkPage />;
+    }
+  };
+
   const contextValue = {
-    modalCxt: { isModalOpen, setIsModalOpen, setDetailedContent },
+    modalCxt: { isModalOpen, setIsModalOpen, setModalType, setDetailedContent },
     basketCxt: { basket, setBasket, resetBasket }
   };
 
   return (
     <>
-      <Searchbar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setTriggerSearch={setTriggerSearch}
-      />
-      <FiltersSection filters={filters} setFilters={setFilters} />
       <ApplicationContext.Provider value={contextValue}>
+        <Searchbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setTriggerSearch={setTriggerSearch}
+        />
+        <FiltersSection filters={filters} setFilters={setFilters} />
+
         <ResultSection
           isError={isError}
           isSearching={isSearching}
           result={result}
         />
+
+        <ModalWrapper
+          isModalOpen={isModalOpen}
+          title={modalType === "result" ? detailedContent.name : "Benchmark"}
+          onClose={onClose}
+        >
+          {renderModal(modalType)}
+        </ModalWrapper>
       </ApplicationContext.Provider>
-      <ModalWrapper
-        isModalOpen={isModalOpen}
-        title={detailedContent.name}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
-      >
-        <ResultDetailedEntry content={detailedContent} />
-      </ModalWrapper>
     </>
   );
 };
