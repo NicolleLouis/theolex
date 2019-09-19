@@ -9,17 +9,26 @@ const BenchmarkPage = () => {
   return (
     <>
       {basketCxt && (
-        <div className="col-12 col-md-12">
+        <div className="col-12 col-md-12 mt-5">
           <Card className="card-stats">
-            <div style={{ widCell: "100%", height: "200px" }}>
+            <div style={{ widCell: "100%", height: "300px" }}>
               <StickyTable>
-                <Row>
+                <Row
+                  style={{
+                    boxSizing: "border-box",
+                    verticalAlign: "inherit",
+                    color: "#8898aa",
+                    backgroundColor: "#f6f9fc",
+                    textTransform: "uppercase"
+                  }}
+                  className="pt-2 pb-2"
+                >
                   <Cell></Cell>
                   {basketCxt.basket.decisions &&
                     basketCxt.basket.decisions.length > 0 &&
                     basketCxt.basket.decisions.map((decision, index) => {
                       return (
-                        <Cell key={index} id={decision.id}>
+                        <Cell key={index} id={`decision-${decision.id}`}>
                           {decision.name}
                         </Cell>
                       );
