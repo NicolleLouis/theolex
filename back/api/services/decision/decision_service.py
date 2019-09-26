@@ -1,3 +1,6 @@
+import datetime
+
+
 class DecisionService:
 
     @staticmethod
@@ -26,4 +29,10 @@ class DecisionService:
 
     @staticmethod
     def order_decisions_by_date(decisions):
-        return sorted(decisions, key=lambda decision: decision["decision_date"], reverse=True)
+        def sort_key(decision):
+            if hasattr(decision, "decision_date") and decisions["decision_date"]:
+                return decision["decision_date"]
+            else:
+                return datetime.datetime.min
+
+        return sorted(decisions, key=sort_key, reverse=True)

@@ -109,9 +109,10 @@ class DecisionAdmin(ImportExportModelAdmin):
         'name',
         'justice_type',
         'type',
-        'get_violations',
-        'get_authorities',
-        'get_organizations'
+        'decision_date',
+        # 'get_violations',
+        # 'get_authorities',
+        # 'get_organizations'
     )
 
     def get_violations(self, decision):
