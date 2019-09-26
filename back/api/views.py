@@ -28,8 +28,10 @@ def get_decisions(request):
         filtered_decisions = temporary_filtered_decision
         # filtered_decisions_ = filtered_decisions.filter(**{"text__icontains": input_search_bar})
 
+    list_decision = DecisionService.transform_decision_list_to_json(filtered_decisions)
+    ordered_list = DecisionService.order_decisions_by_date(list_decision)
     return JsonResponse({
-        "hits": DecisionService.transform_decision_list_to_json(filtered_decisions)
+        "hits": ordered_list
     })
 
 

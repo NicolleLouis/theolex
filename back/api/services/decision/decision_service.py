@@ -23,3 +23,7 @@ class DecisionService:
     @staticmethod
     def transform_decision_list_to_json(decisions):
         return list(map(lambda decision: decision.to_json(), decisions))
+
+    @staticmethod
+    def order_decisions_by_date(decisions):
+        return sorted(decisions, key=lambda decision: decision["decision_date"], reverse=True)
