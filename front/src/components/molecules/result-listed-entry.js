@@ -6,48 +6,41 @@ import DecisionDate from "../atoms/decision-date";
 import DecisionType from "../atoms/decision-type";
 import AuthoritiesWrapper from "./authorities-wrapper";
 
-const ResultListedEntry = ({ content }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const ResultListedEntry = ({ content, isChecked }) => {
   const { modalCxt, basketCxt } = useContext(ApplicationContext);
+  const { basket } = basketCxt;
+  const [localChecked, setLocalChecked] = useState(false);
   const handleClick = () => {
     modalCxt.setDetailedContent(content);
     modalCxt.setIsModalOpen(true);
   };
 
+  useEffect(() => {
+    if (isChecked) {
+      setLocalChecked(true);
+    }
+  }, [isChecked]);
+
   const handleOnChange = content => {
-    const { basket } = basketCxt;
-    if (basket && basket.decisions && basket.decisions.length > 0) {
-      /* Remove current decision in basket */
-      const decisionsWithoutCurrent = basket.decisions.filter(
+    if (
+      localChecked &&
+      basket &&
+      basket.decisions &&
+      basket.decisions.length > 0
+    ) {
+      // remove from basket
+      const removedBasket = basket.decisions.filter(
         decision => decision.id !== content.id
       );
-
-      if (!isChecked) {
-        /* Push to basket only if it is checked */
-        decisionsWithoutCurrent.push(
-          Object.assign({}, content, { isChecked: true })
-        );
-      }
-      const newBasket = Object.assign({}, basket, {
-        decisions: decisionsWithoutCurrent
-      });
-      /* Update basket */
-      basketCxt.setBasket(newBasket);
-      setIsChecked(!isChecked);
+      basketCxt.setBasket({ decisions: removedBasket });
+    } else {
+      // add to basket
+      const newBasket = [...basket.decisions];
+      newBasket.push(content);
+      basketCxt.setBasket({ decisions: newBasket });
     }
+    setLocalChecked(!localChecked);
   };
-
-  /* initalized isChecked with basket */
-  useEffect(() => {
-    if (content && basketCxt && basketCxt.basket.decisions) {
-      let currentDecision = basketCxt.basket.decisions.find(
-        decision => decision.id === content.id
-      );
-      if (currentDecision) {
-        setIsChecked(currentDecision.isChecked);
-      }
-    }
-  }, [content, basketCxt]);
 
   return (
     <>
@@ -58,7 +51,7 @@ const ResultListedEntry = ({ content }) => {
               className="custom-control-input"
               id={`decision-${content.id}`}
               type="checkbox"
-              checked={isChecked}
+              checked={localChecked}
               onChange={event => handleOnChange(content, event)}
             />
             <label
