@@ -58,7 +58,7 @@ def get_amount_by_company(request):
 def get_benchmark(request):
     return JsonResponse({
         "hits": 3,
-        "columns": [
+        "rows": [
             "decision_name",
             "authority",
             "violation"
