@@ -53,3 +53,31 @@ def get_amount_by_company(request):
         "hits": len(all_organization_with_total_amount_paid),
         "value": all_organization_with_total_amount_paid
     })
+
+
+def get_benchmark(request):
+    return JsonResponse({
+        "hits": 3,
+        "columns": [
+            "decision_name",
+            "authority",
+            "violation"
+        ],
+        "values": [
+            {
+                "decision_name": "decision1",
+                "authority": "authority1",
+                "violation": "violation1"
+            },
+            {
+                "decision_name": "decision2",
+                "authority": "authority2",
+                "violation": "violation2"
+            },
+            {
+                "decision_name": "decision3",
+                "authority": "authority3",
+                "violation": "violation3"
+            }
+        ]
+    })
