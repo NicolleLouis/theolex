@@ -46,7 +46,7 @@ const ResultListedEntry = ({ content, isChecked }) => {
     <>
       {content && (
         <div className="row mb-3 media text-muted pt-3 border-bottom border-primary">
-          <div className="custom-control custom-checkbox mb-3 col-md-4 themed-grid-col pb-3">
+          <div className="custom-control custom-checkbox ">
             <input
               className="custom-control-input"
               id={`decision-${content.id}`}
@@ -58,19 +58,21 @@ const ResultListedEntry = ({ content, isChecked }) => {
               className="custom-control-label small lh-125"
               htmlFor={`decision-${content.id}`}
             >
-              <strong
-                className="d-block text-gray-dark"
-                data-tip
-                data-for="name"
-              >
-                {content.name}
-              </strong>
-              <ReactTooltip id="name" type="info">
-                <span>Name</span>
-              </ReactTooltip>
+              {"       "}
             </label>
           </div>
-
+          <div
+            className="mb-3 col-md-4 themed-grid-col pb-3"
+            style={{ cursor: "pointer" }}
+            onClick={handleClick}
+          >
+            <strong className="d-block text-gray-dark" data-tip data-for="name">
+              {content.name}
+            </strong>
+            <ReactTooltip id="name" type="info">
+              <span>Name</span>
+            </ReactTooltip>
+          </div>
           <div
             className="col-md-4 themed-grid-col media-body pb-3 mb-0 lh-125"
             data-tip

@@ -76,7 +76,7 @@ const SearchPage = () => {
             title={modalCxt.detailedContent.name}
             onClose={modalCxt.onClose}
           >
-            <ResultDetailedEntry content={modalCxt.detailedContent} />;
+            <ResultDetailedEntry content={modalCxt.detailedContent} />
           </ModalWrapper>
         </>
       )}
