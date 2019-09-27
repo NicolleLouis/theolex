@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Cell, Row } from "react-sticky-table";
 
 const TableBenchmark = ({ benchmark }) => {
   const { rows, values, hits } = benchmark;
@@ -15,23 +14,48 @@ const TableBenchmark = ({ benchmark }) => {
 
   return (
     <>
-      {isReady &&
-        rows.map((row, index) => {
-          return (
-            <Row>
-              <Cell>{row}</Cell>
-              {values &&
-                values.length > 0 &&
-                values.map(value => {
+      {isReady && (
+        <div className="table-responsive">
+          <table className="align-items-center table-flush table">
+            {rows && rows.length > 0 && (
+              <thead className="thead-light">
+                <tr>
+                  <td></td>
+                  {values &&
+                    values.length > 0 &&
+                    values.map(value => {
+                      return (
+                        <>
+                          <td>{value[rows[0]]}</td>
+                        </>
+                      );
+                    })}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {rows.map((row, index) => {
+                if (index !== 0) {
                   return (
-                    <>
-                      <Cell>{value[row]}</Cell>
-                    </>
+                    <tr key={index}>
+                      <td>{row}</td>
+                      {values &&
+                        values.length > 0 &&
+                        values.map(value => {
+                          return (
+                            <>
+                              <td>{value[row]}</td>
+                            </>
+                          );
+                        })}
+                    </tr>
                   );
-                })}
-            </Row>
-          );
-        })}
+                }
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 };
