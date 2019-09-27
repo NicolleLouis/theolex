@@ -1,4 +1,5 @@
 import datetime
+import pytz
 
 
 class DecisionService:
@@ -30,9 +31,9 @@ class DecisionService:
     @staticmethod
     def order_decisions_by_date(decisions):
         def sort_key(decision):
-            if hasattr(decision, "decision_date") and decisions["decision_date"]:
+            if decision["decision_date"] is not None:
                 return decision["decision_date"]
             else:
-                return datetime.datetime.min
+                return pytz.utc.localize(datetime.datetime.min)
 
         return sorted(decisions, key=sort_key, reverse=True)
