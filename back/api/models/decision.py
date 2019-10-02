@@ -16,6 +16,14 @@ class Decision(models.Model):
         null=True,
         blank=True
     )
+    document_link = models.TextField(
+        null=True,
+        blank=True
+    )
+    press_release_link = models.TextField(
+        null=True,
+        blank=True
+    )
     monetary_sanction = models.FloatField(
         null=True,
         blank=True
