@@ -30,8 +30,10 @@ def get_decisions(request):
 
     list_decision = DecisionService.transform_decision_list_to_json(filtered_decisions)
     ordered_list = DecisionService.order_decisions_by_date(list_decision)
+    limited_list = ordered_list[:20]
     return JsonResponse({
-        "hits": ordered_list
+        "number_of_hits": len(ordered_list),
+        "hits": limited_list
     })
 
 
