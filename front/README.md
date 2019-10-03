@@ -1,6 +1,6 @@
 
 # Theolex front-end for Docker
-=======
+
 Use `theolex/front` as reference folder
 
 # Installation

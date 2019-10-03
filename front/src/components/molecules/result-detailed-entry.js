@@ -11,9 +11,11 @@ const ResultDetailedEntry = ({ content }) => {
       <div className="col-12 col-md-12">
         <Card className="card-stats">
           <div className="row">
-            {content.decision_date && (
-              <DecisionDate date={content.decision_date} />
-            )}
+            <div className="col">
+              {content.decision_date && (
+                <DecisionDate date={content.decision_date} />
+              )}
+            </div>
             <div className="col">
               <strong
                 className="d-block text-gray-dark"
@@ -26,8 +28,26 @@ const ResultDetailedEntry = ({ content }) => {
                 <span>Authorities</span>
               </ReactTooltip>
             </div>
-            <DecisionType value={content.type} />
-            <TagWrapper tags={content.tags} />
+            <div className="col">
+              <DecisionType value={content.type} />
+            </div>
+            <div className="col">
+              <TagWrapper tags={content.tags} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              {content.press_release_link && (
+                <a href={content.press_release_link}>Press release</a>
+              )}
+            </div>
+            <div className="col">
+              {content.document_link && (
+                <a href={content.document_link}>Documents</a>
+              )}
+            </div>
+            <div className="col"></div>
+            <div className="col"></div>
           </div>
         </Card>
         <Card className="card-stats">
