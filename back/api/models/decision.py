@@ -70,6 +70,8 @@ class Decision(models.Model):
             'type': self.type,
             'decision_date': self.decision_date,
             'authorities': self.get_many_to_many_values("authorities"),
+            'press_release_link': self.press_release_link,
+            'document_link': self.document_link,
             'tags': self.get_tags()
         }
 
