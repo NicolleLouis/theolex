@@ -18,7 +18,25 @@ Database credentials are the following:
 - Database: theolex
 Ask Louis for user and password
 
-# Create Superuser
-`docker exec -it back_web_1 python manage.py createsuperuser`
+# Local install
+- Start server: 
+`make python-up`
 
+- Populate database schema: 
+`make migrations`
+
+- Create Superuser:
+`docker exec -it back_web_1 python manage.py createsuperuser`
 then connect to http://localhost:8000/admin/
+
+- From server admin page, import csv files:
+    - decision.csv
+    - authorities.csv
+    - violations.csv
+    - organizations.csv
+
+- Consolidate data:
+    - `docker exec -it back_web_1 python manage.py import_decision_authority`
+    - `docker exec -it back_web_1 python manage.py import_decision_organization`
+    - `docker exec -it back_web_1 python manage.py import_decision_violation`
+

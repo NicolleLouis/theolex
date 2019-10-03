@@ -81,7 +81,16 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
                 data-sort="label"
                 onClick={handleSort}
               >
-                Company
+                Entity
+              </th>
+              <th
+                scope="col"
+                id="company_type"
+                className="sort"
+                data-sort="label"
+                onClick={handleSort}
+              >
+                Activity
               </th>
               <th
                 scope="col"
@@ -115,7 +124,12 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
                       {amountAndCompany && amountAndCompany.company}
                     </span>
                   </th>
-                  <td>{amountAndCompany && amountAndCompany.amount_paid}</td>
+                  <th scope="row">
+                    <span className="name mb-0 text-sm">
+                      {amountAndCompany && amountAndCompany.company_type}
+                    </span>
+                  </th>
+                  <td>{amountAndCompany && amountAndCompany.amount_paid_formatted}</td>
                 </tr>
               ))
             )}
