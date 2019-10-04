@@ -46,7 +46,13 @@ const ResultDetailedEntry = ({ content }) => {
                 <a href={content.document_link}>Documents</a>
               )}
             </div>
-            <div className="col"></div>
+            <div className="col">
+              {content.defendant && (
+                <span>
+                  Defendant: <strong>{content.defendant}</strong>
+                </span>
+              )}
+            </div>
             <div className="col"></div>
           </div>
         </Card>
