@@ -37,6 +37,10 @@ class Decision(models.Model):
         null=True,
         blank=True
     )
+    defendant = models.TextField(
+        null=True,
+        blank=True
+    )
     decision_date = models.DateTimeField(
         null=True,
         blank=True
@@ -72,6 +76,7 @@ class Decision(models.Model):
             'authorities': self.get_many_to_many_values("authorities"),
             'press_release_link': self.press_release_link,
             'document_link': self.document_link,
+            'defendant': self.defendant,
             'tags': self.get_tags()
         }
 
