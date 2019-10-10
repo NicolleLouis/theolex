@@ -58,28 +58,12 @@ def get_amount_by_company(request):
 
 
 def get_benchmark(request):
+    decisions_ids = request.GET.getlist('decisions[]')
+    decisions = list(map(lambda decision_id: DecisionRepository.get_decision_by_id(decision_id), decisions_ids))
+    decisions_json = list(map(lambda decision: decision.to_json_benchmark(), decisions))
+
     return JsonResponse({
-        "hits": 3,
-        "rows": [
-            "decision_name",
-            "authority",
-            "violation"
-        ],
-        "values": [
-            {
-                "decision_name": "decision1",
-                "authority": "authority1",
-                "violation": "violation1"
-            },
-            {
-                "decision_name": "decision2",
-                "authority": "authority2",
-                "violation": "violation2"
-            },
-            {
-                "decision_name": "decision3",
-                "authority": "authority3",
-                "violation": "violation3"
-            }
-        ]
+        "hits": len(decisions_ids),
+        "rows": list(decisions_json[0].keys()),
+        "values": decisions_json
     })

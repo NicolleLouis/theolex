@@ -80,6 +80,16 @@ class Decision(models.Model):
             'tags': self.get_tags()
         }
 
+    def to_json_benchmark(self):
+        return {
+            'name': self.name,
+            'justice_type': self.justice_type,
+            'type': self.type,
+            'defendant': self.defendant,
+            'monetary_sanction': FormatterService.format_monetary_amount(self.monetary_sanction),
+            'decision_date': self.decision_date,
+        }
+
     def get_tags(self):
         tags = []
         # Add monetary sanction
