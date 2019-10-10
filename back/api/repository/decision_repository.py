@@ -25,3 +25,7 @@ class DecisionRepository:
     @staticmethod
     def get_decision_by_name(name):
         return Decision.objects.get(name=name)
+
+    @staticmethod
+    def get_decision_by_id(id):
+        return Decision.objects.get(id=id)
