@@ -1,11 +1,12 @@
 import React from "react";
 import ResultList from "../molecules/result-list";
+import ErrorAlert from "../atoms/error-alert";
 
 const ResultSection = ({ isError, isSearching, result }) => {
   return (
     <div className="ml-4">
       {isError ? (
-        <div>Something went wrong ...</div>
+        <ErrorAlert text="Error when fetching decisions" />
       ) : isSearching ? (
         <div>Searching ...</div>
       ) : (

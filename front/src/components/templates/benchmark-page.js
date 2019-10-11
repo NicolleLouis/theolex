@@ -4,6 +4,7 @@ import axios from "axios";
 import Card from "../atoms/card";
 import ApplicationContext from "../../config/application-context";
 import TableBenchmark from "../molecules/table-benchmark";
+import ErrorAlert from "../atoms/error-alert";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
@@ -77,21 +78,14 @@ const BenchmarkPage = () => {
               </div>
             </div>
             {isBasketEmpty ? (
-              <div
-                className="alert alert-danger alert-dismissible fade show"
-                role="alert"
-              >
-                <span className="alert-icon">
-                  <i className="fas fa-exclamation-circle" />
-                </span>
-                <span className="alert-text ml-1">
-                  <strong>No decision selected</strong> Please select decisions
-                </span>
-              </div>
+              <ErrorAlert
+                text="No decision selected"
+                notes="Please select decisions"
+              />
             ) : isFetching ? (
               <span>Fetching benchmarks....</span>
             ) : isError ? (
-              <span>Error fetching benchmarks</span>
+              <ErrorAlert text="Error fetching benchmarks" />
             ) : (
               benchmark && <TableBenchmark benchmark={benchmark} />
             )}
