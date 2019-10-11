@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { debounce } from "lodash";
 import getConfig from "next/config";
 import PropTypes from "prop-types";
@@ -22,24 +22,21 @@ const DropdownSearch = ({
   const [fetchError, setFetchError] = useState(false);
   const [filterValues, setFilterValues] = useState([]);
   const [localValue, setLocalValue] = useState(value ? value : "");
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
 
   const getQueryParams = name => {
     let params = {};
     params["filter_label"] = name;
-    return { params: params };
+    return Object.assign({ cancelToken: source.token }, { params: params });
   };
+
+  const queryParams = useMemo(() => getQueryParams(name), [name]);
 
   /* Get filters dropdown values */
   useEffect(() => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
     const fetchFilterValues = async () => {
       setFetchError(false);
-      const queryParams = Object.assign(
-        { cancelToken: source.token },
-        getQueryParams(name)
-      );
-
       try {
         const response = await axios.get(GET_FILTERS_VALUE, queryParams);
         const {
@@ -62,7 +59,7 @@ const DropdownSearch = ({
     return () => {
       source.cancel();
     };
-  }, [name]);
+  }, [queryParams]);
 
   const triggerFilters = debounce((localValue, name) => {
     console.info(

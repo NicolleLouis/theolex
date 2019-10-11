@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import Searchbar from "../organisms/searchbar";
@@ -24,14 +24,22 @@ const SearchPage = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const getQueryParams = () => {
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
+  const getQueryParams = (filters, searchTerm) => {
     let params = {};
     params["filters"] = filters;
     if (searchTerm !== "") {
       params["input_search_bar"] = searchTerm;
     }
-    return { params: params };
+    return Object.assign({ cancelToken: source.token }, { params: params });
   };
+
+  const queryParams = useMemo(() => getQueryParams(filters, searchTerm), [
+    filters,
+    searchTerm
+  ]);
 
   /* Call API when search is triggered */
   useEffect(() => {
@@ -40,19 +48,29 @@ const SearchPage = () => {
       setIsSearching(true);
 
       try {
-        const response = await axios.get(GET_DECISIONS, getQueryParams());
+        const response = await axios.get(GET_DECISIONS, queryParams);
         setResult(response.data);
       } catch (error) {
-        setIsError(true);
+        if (axios.isCancel(error)) {
+          console.info("fetchDecisions cancelled", error);
+        } else {
+          setIsError(true);
+          console.error(`fetchDecisions error ${filters} ${error}`);
+          throw error;
+        }
       }
       setIsSearching(false);
     };
+    console.info(
+      `fetchDecisions ${JSON.stringify(filters, null, 2)} ${searchTerm}`
+    );
     fetchDecisions();
-  }, [triggerSearch]);
 
-  useEffect(() => {
-    setTriggerSearch("Filters: ".concat(JSON.stringify(filters)));
-  }, [filters]);
+    /* Executed when component willUnmount */
+    return () => {
+      source.cancel();
+    };
+  }, [queryParams, triggerSearch]);
 
   return (
     <>

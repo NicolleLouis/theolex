@@ -1,43 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import getConfig from "next/config";
 import axios from "axios";
 import Card from "../atoms/card";
 import { sortBy } from "lodash";
+import FiltersSection from "../organisms/filters-section";
 
 const { publicRuntimeConfig } = getConfig();
 const { API_URL } = publicRuntimeConfig;
 const GET_AMOUNT_BY_COMPANY = API_URL + "/get_amount_by_company";
 
-/* Hook */
-const useGetAmountByCompany = () => {
+const TableAmountByCompany = () => {
+  const [filters, setFilters] = useState("");
+  const [sorted, setSorted] = useState({});
+  const [filteredCompanies, setFilteredCompany] = useState([]);
   const [isError, setIsError] = useState(false);
   const [amountByCompany, setAmountByCompany] = useState([]);
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
+  const getQueryParams = filters => {
+    let params = {};
+    params["filters"] = filters;
+    return Object.assign({ cancelToken: source.token }, { params: params });
+  };
+
+  const queryParams = useMemo(() => getQueryParams(filters), [filters]);
+
   useEffect(() => {
+
     const fetchAmountByCompany = async () => {
       setIsError(false);
       try {
-        const response = await axios.get(GET_AMOUNT_BY_COMPANY);
+        const response = await axios.get(GET_AMOUNT_BY_COMPANY, queryParams);
         const { data } = response;
-        if (data.value) setAmountByCompany(data.value);
+        if (data.value) {
+          setAmountByCompany(data.value);
+        }
       } catch (error) {
-        setIsError(true);
-        console.error("fetchAmountByCompany: ", error);
+        if (axios.isCancel(error)) {
+          console.log("fetchAmountByCompany cancelled", error);
+        } else {
+          setIsError(true);
+          console.error(`fetchDecisions error ${filters} ${error}`);
+          throw error;
+        }
       }
     };
+
+    console.info("fetchAmountByCompany ", JSON.stringify(queryParams, null, 2));
     fetchAmountByCompany();
-  }, []);
-  return { amountByCompany, isError };
-};
 
-/* HOC */
-const withAmountByCompany = Comp => props => {
-  const { amountByCompany, isError } = useGetAmountByCompany();
-  return <Comp {...props} amountByCompany={amountByCompany} error={isError} />;
-};
-
-const TableAmountByCompany = ({ amountByCompany, error }) => {
-  const [sorted, setSorted] = useState({});
-  const [filteredCompanies, setFilteredCompany] = useState([]);
+    /* Executed when component willUnmount */
+    return () => {
+      source.cancel();
+    };
+  }, [queryParams]);
 
   useEffect(() => {
     setFilteredCompany(Array.from(amountByCompany));
@@ -70,6 +87,7 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
 
   return (
     <Card>
+      <FiltersSection filters={filters} setFilters={setFilters} />
       <div className="table-responsive">
         <table className="table align-items-center table-flush">
           <thead className="thead-light">
@@ -104,7 +122,7 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
             </tr>
           </thead>
           <tbody className="list">
-            {error ? (
+            {isError ? (
               <tr>
                 <td>
                   <div className="alert alert-danger alert-dismissible fade show">
@@ -129,7 +147,9 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
                       {amountAndCompany && amountAndCompany.company_type}
                     </span>
                   </th>
-                  <td>{amountAndCompany && amountAndCompany.amount_paid_formatted}</td>
+                  <td>
+                    {amountAndCompany && amountAndCompany.amount_paid_formatted}
+                  </td>
                 </tr>
               ))
             )}
@@ -140,4 +160,4 @@ const TableAmountByCompany = ({ amountByCompany, error }) => {
   );
 };
 
-export default withAmountByCompany(TableAmountByCompany);
+export default TableAmountByCompany;
