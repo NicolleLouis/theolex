@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { debounce } from "lodash";
 import getConfig from "next/config";
 import PropTypes from "prop-types";
 import classnames from "classnames";
@@ -20,8 +21,9 @@ const DropdownSearch = ({
 }) => {
   const [fetchError, setFetchError] = useState(false);
   const [filterValues, setFilterValues] = useState([]);
+  const [localValue, setLocalValue] = useState(value ? value : "");
 
-  const getQueryParams = () => {
+  const getQueryParams = name => {
     let params = {};
     params["filter_label"] = name;
     return { params: params };
@@ -29,9 +31,14 @@ const DropdownSearch = ({
 
   /* Get filters dropdown values */
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
     const fetchFilterValues = async () => {
       setFetchError(false);
-      const queryParams = getQueryParams();
+      const queryParams = Object.assign(
+        { cancelToken: source.token },
+        getQueryParams(name)
+      );
 
       try {
         const response = await axios.get(GET_FILTERS_VALUE, queryParams);
@@ -41,24 +48,51 @@ const DropdownSearch = ({
 
         setFilterValues(values);
       } catch (error) {
-        setFetchError(true);
-        console.error("Fetch filter ", label, "error: ", error);
+        if (axios.isCancel(error)) {
+          console.info("fetchFilterValues cancelled", error);
+        } else {
+          setFetchError(true);
+          console.error(`fetchFilterValues error ${name} ${error}`);
+          throw error;
+        }
       }
     };
+    console.info(`fetchFilterValues fetching ${name} ${value}`);
     fetchFilterValues();
-  }, [label]);
+    return () => {
+      source.cancel();
+    };
+  }, [name]);
+
+  const triggerFilters = debounce((localValue, name) => {
+    console.info(
+      `triggerFilters ${JSON.stringify(
+        filters,
+        null,
+        2
+      )} localValue ${localValue}`
+    );
+    if (localValue !== "") {
+      setFilters(filters => ({
+        ...filters,
+        [name]: localValue
+      }));
+    } else {
+      delete filters[name];
+      setFilters(Object.assign({}, filters));
+    }
+  }, 100);
 
   const handleChange = event => {
     event.persist();
-    if (event.target.value !== "") {
-      setFilters(filters => ({
-        ...filters,
-        [event.target.name]: event.target.value
-      }));
-    } else {
-      delete filters[event.target.name];
-      setFilters(Object.assign({}, filters));
-    }
+    setLocalValue(event.target.value);
+    triggerFilters(localValue, name);
+  };
+
+  const handleKeyUp = event => {
+    console.info(`HandleKeyUp ${JSON.stringify(filters, null, 2)}`);
+    event.persist();
+    triggerFilters(localValue, name);
   };
 
   return (
@@ -74,9 +108,10 @@ const DropdownSearch = ({
           name={name}
           type="text"
           placeholder={placeholder}
-          value={value}
+          value={localValue}
           style={{ cursor: "pointer" }}
           onChange={handleChange}
+          onKeyUp={handleKeyUp}
         />
         <datalist id={`${id}-list`} className="lisbox">
           {filterValues &&
