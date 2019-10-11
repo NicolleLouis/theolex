@@ -91,10 +91,10 @@ const SearchPage = () => {
 
           <ModalWrapper
             isModalOpen={modalCxt.isModalOpen}
-            title={modalCxt.detailedContent.name}
+            title={modalCxt.modalTitle}
             onClose={modalCxt.onClose}
           >
-            <ResultDetailedEntry content={modalCxt.detailedContent} />
+            <ResultDetailedEntry />
           </ModalWrapper>
         </>
       )}

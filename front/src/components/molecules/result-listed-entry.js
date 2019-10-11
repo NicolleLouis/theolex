@@ -6,12 +6,13 @@ import DecisionDate from "../atoms/decision-date";
 import DecisionType from "../atoms/decision-type";
 import AuthoritiesWrapper from "./authorities-wrapper";
 
-const ResultListedEntry = ({ content, isChecked }) => {
+const ResultListedEntry = ({ id, content, isChecked }) => {
   const { modalCxt, basketCxt } = useContext(ApplicationContext);
   const { basket } = basketCxt;
   const [localChecked, setLocalChecked] = useState(false);
   const handleClick = () => {
-    modalCxt.setDetailedContent(content);
+    modalCxt.setModalTitle(content.name);
+    modalCxt.setContentId(id);
     modalCxt.setIsModalOpen(true);
   };
 

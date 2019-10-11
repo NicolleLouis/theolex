@@ -72,7 +72,8 @@ const PageWrapper = ({ title }) => {
 
   /* Manage Modal */
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [detailedContent, setDetailedContent] = useState({});
+  const [modalTitle, setModalTitle] = useState("");
+  const [contentId, setContentId] = useState("");
 
   const onClose = () => setIsModalOpen(false);
 
@@ -80,8 +81,10 @@ const PageWrapper = ({ title }) => {
     modalCxt: {
       isModalOpen,
       setIsModalOpen,
-      detailedContent,
-      setDetailedContent,
+      modalTitle,
+      setModalTitle,
+      contentId,
+      setContentId,
       onClose
     },
     basketCxt: { basket, setBasket, resetBasket }

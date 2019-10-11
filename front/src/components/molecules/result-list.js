@@ -23,6 +23,7 @@ const ResultList = ({ result }) => {
           return (
             <ResultListedEntry
               key={index}
+              id={entry.id}
               content={entry}
               isChecked={isChecked}
             />
