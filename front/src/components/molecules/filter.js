@@ -62,7 +62,7 @@ const Filter = ({ id, name, label, className, filters, setFilters, value }) => {
           })}
           name={name}
           onChange={handleChange}
-          value={value}
+          value={value ? value : ""}
           style={{ cursor: "pointer" }}
         >
           <option key="-1" value="">
