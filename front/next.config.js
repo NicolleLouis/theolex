@@ -13,7 +13,7 @@ const {
 // Compute api host needed to call
 is_dev_environment = process.env.ENV == "dev"
 
-const api_url = is_dev_environment ? "http://localhost:8000/api" : "http://34.77.17.149:8000/api";
+const api_url = is_dev_environment ? "http://localhost:8000/api" : "http://34.77.130.212:8000/api";
 
 const nextConfig = {
   publicRuntimeConfig: {

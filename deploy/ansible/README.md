@@ -68,4 +68,4 @@ Follow documentation
 
 ## Access to url
 http only 
-<br>[http://34.77.17.149:3000/](http://34.77.17.149:3000/)
+<br>[http://34.77.130.212:3000/](http://34.77.130.212:3000/)
